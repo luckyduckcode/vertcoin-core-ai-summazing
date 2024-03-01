@@ -1,0 +1,1 @@
+# vertcoin-core-ai-summazing
