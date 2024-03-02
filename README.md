@@ -1,5 +1,5 @@
 # vertcoin-core-ai-summazing
-just as the title suggests this is a collection of the src code from vertcoin being summarized. 
+just as the title suggests this is a collection of the src code from vertcoin core being summarized,using ai. 
 
 feel free to donate to support this project:
 
