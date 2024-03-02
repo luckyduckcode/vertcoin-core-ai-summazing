@@ -1,0 +1,36 @@
+This code defines the `Session` class, which represents a session with the I2P network's SAM (Streaming Access Module) bridge. The code enables applications to connect to I2P destinations (hidden services) through the SAM bridge.
+
+Here's a breakdown of the key functionalities:
+
+**Establishing a session:**
+
+* The `Session` constructor takes the private key file path, control host address, and an interrupt object as arguments.
+* The `CreateIfNotCreatedAlready` method creates a session with the SAM bridge if it's not already established. It involves:
+    * Connecting to the control host and performing an "HELLO" handshake.
+    * Reading the private key from a file or generating a new one if the file doesn't exist.
+    * Sending a "SESSION CREATE" request to the control host, providing the private key and other details.
+    * Storing the session ID, my address (derived from the private key), and the control socket.
+
+**Listening for incoming connections:**
+
+* The `Listen` method attempts to accept an incoming connection from an I2P destination. It creates a new socket and waits for a connection request.
+* Upon a successful connection, the method populates the `conn` argument with the I2P address of the destination.
+
+**Accepting incoming connections:**
+
+* The `Accept` method waits for an I2P destination to connect to the session. It waits for a connection request containing the destination's I2P address and populates the `conn` argument with the address upon successful connection.
+
+**Connecting to an I2P destination:**
+
+* The `Connect` method attempts to establish a connection to a specific I2P destination. It performs the following steps:
+    * Validates the destination port to be the I2P SAM port (3179).
+    * Sends a "NAMING LOOKUP" request to the control host to retrieve the destination's internal I2P address.
+    * Sends a "STREAM CONNECT" request to the control host to initiate the connection with the destination.
+    * Upon successful connection, the method populates the `conn` argument with the destination's address and the established socket.
+
+**Error handling and disconnection:**
+
+* The code checks for various errors throughout, including connection failures, invalid responses from the control host, and timeouts.
+* The `Disconnect` method gracefully closes the connection and cleans up resources.
+
+Overall, this code provides a mechanism for applications to interact with I2P destinations through a secure and controllable manner.

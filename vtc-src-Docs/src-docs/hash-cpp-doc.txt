@@ -1,0 +1,25 @@
+This code defines several functions for hashing and cryptographic operations in the Bitcoin Core project.
+
+**Key Points:**
+
+- **`ROTL32` function:**
+    - Performs a 32-bit left rotation by a specified number of bits.
+
+- **`MurmurHash3` function:**
+    - Implements the MurmurHash3 algorithm for generating a 32-bit hash from a byte span.
+    - Processes data in 4-byte blocks and a final tail, utilizing rotations and multiplications.
+
+- **`BIP32Hash` function:**
+    - Generates a 64-byte hash using HMAC-SHA512 based on a chain code, child number, header byte, and data.
+    - Combines the chain code, header, data, and child number using concatenation before hashing.
+
+- **`SHA256Uint256` function:**
+    - Hashes a `uint256` object using SHA-256 and returns a new `uint256` object with the result.
+
+- **`TaggedHash` function:**
+    - Creates a `CHashWriter` object for efficient serializable data hashing.
+    - Calculates a SHA-256 hash of the provided tag string and prepends it twice to the writer.
+
+**Overall:**
+
+This code provides various hashing functionalities commonly used in cryptographic operations within Bitcoin Core. It implements the MurmurHash3 algorithm, leverages HMAC-SHA512 for BIP32 key derivation, and enables tagged hashing with SHA-256, all essential for secure data processing and verification in the Bitcoin network.

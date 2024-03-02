@@ -1,0 +1,29 @@
+## I2P Session Management for Bitcoin Core
+
+This code defines the `Session` class within the `i2p::sam` namespace. It facilitates managing I2P sessions for Bitcoin Core, allowing secure communication with other peers over the I2P network.
+
+**Key functionalities:**
+
+* **Session establishment:**
+    * The constructor takes the private key file path, control host address, and an interrupt object.
+    * The `CreateIfNotCreatedAlready` method creates a session if it doesn't exist by:
+        * Connecting to the control host and performing a handshake.
+        * Reading or generating the private key.
+        * Sending a "SESSION CREATE" request to the control host with the private key.
+        * Storing session ID, local I2P address, and the control socket.
+* **Listening for incoming connections:**
+    * The `Listen` method attempts to accept an incoming connection from another I2P peer.
+    * Upon successful connection, it populates the `conn` argument with the peer's I2P address.
+* **Accepting incoming connections:**
+    * The `Accept` method waits for an I2P peer to connect and populates the `conn` argument with the peer's address upon successful connection.
+* **Connecting to other peers:**
+    * The `Connect` method connects to a specific I2P peer by:
+        * Validating the destination port.
+        * Retrieving the peer's internal address from the control host.
+        * Sending a "STREAM CONNECT" request to initiate the connection.
+        * Populating the `conn` argument with the peer's address and the established socket upon success.
+* **Error handling and disconnection:**
+    * The code checks for various errors throughout, including connection failures, invalid responses, and timeouts.
+    * The `Disconnect` method gracefully closes the connection and cleans up resources.
+
+**Overall, this code enables Bitcoin Core to securely connect and communicate with other peers on the I2P network.**

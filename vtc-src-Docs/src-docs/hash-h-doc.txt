@@ -1,0 +1,38 @@
+This code defines various functions and classes related to hashing functionalities in the Bitcoin Core project.
+
+**Key Points:**
+
+- **`CHash256` and `CHash160` classes:**
+    - Implement double-SHA256 and SHA-256 + RIPEMD-160 hashing algorithms, respectively.
+    - Provide methods to write data, finalize the hash, and reset the state.
+
+- **`Hash` and `Hash160` templates:**
+    - Calculate the 256-bit hash or 160-bit hash of any object using the corresponding hashers.
+    - Support hashing the concatenation of multiple objects.
+
+- **`CHashWriter` class:**
+    - A stream writer that calculates the 256-bit hash of all data written to it.
+    - Offers methods to get the complete hash (double-SHA256), SHA256 only, or a cheaper 64-bit hash.
+    - Allows serialization of objects directly into the stream for combined hashing and serialization.
+
+- **`CHashVerifier` template:**
+    - Inherits from `CHashWriter`, enabling hash calculation while reading data from another source.
+    - Provides methods to read and ignore data while updating the internal hash.
+    - Supports deserialization of objects from the source stream.
+
+- **`HashedSourceWriter` template:**
+    - Inherits from `CHashWriter`, enabling hash calculation while writing data to another source.
+    - Allows serialization of objects directly into the source stream for combined hashing and writing.
+
+- **`SerializeHash` template:**
+    - Calculates the 256-bit hash of an object's serialized form using `CHashWriter`.
+
+- **Other functions:**
+    - `SHA256Uint256`: Performs single-SHA256 on a `uint256` object.
+    - `MurmurHash3`: Implements the MurmurHash3 algorithm (defined in another file).
+    - `BIP32Hash`: Calculates a 64-byte hash using HMAC-SHA512 for BIP32 key derivation (defined in another file).
+    - `TaggedHash`: Returns a `CHashWriter` object prepended with the double-SHA256 hash of the provided tag, used for tagged hashing as specified in BIP 340.
+
+**Overall:**
+
+This code provides a comprehensive set of tools for various hashing needs in Bitcoin Core, including double-SHA256, SHA-256 + RIPEMD-160, and integration with serialization and data streams. It also supports functionalities specific to Bitcoin, such as BIP32 hashing and tagged hashing.

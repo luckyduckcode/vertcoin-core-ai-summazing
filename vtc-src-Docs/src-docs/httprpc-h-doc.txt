@@ -1,0 +1,21 @@
+This code defines the header file for the HTTP RPC and REST subsystems in Bitcoin Core. It mainly outlines the available functions for starting, interrupting, and stopping these subsystems.
+
+**Key Points:**
+
+- **Included header:** `<any>`
+
+- **Function prototypes:**
+    - **`StartHTTPRPC`**: Starts the HTTP RPC subsystem, requiring a context parameter (presumably for passing additional data).
+    - **`InterruptHTTPRPC`**: Interrupts the HTTP RPC subsystem.
+    - **`StopHTTPRPC`**: Stops the HTTP RPC subsystem.
+    - **`StartREST`**: Starts the HTTP REST subsystem, requiring a context parameter.
+    - **`InterruptREST`**: Interrupts the HTTP REST subsystem.
+    - **`StopREST`**: Stops the HTTP REST subsystem.
+
+- **Precondition notes:**
+    - `StartHTTPRPC` and `StartREST` require HTTP and RPC to be started beforehand (not explicitly shown in this header file).
+    - `StopHTTPRPC` and `StopREST` require HTTP and RPC to be stopped beforehand (not explicitly shown in this header file).
+
+**Overall:**
+
+This header file provides a high-level interface for managing the HTTP RPC and REST subsystems in Bitcoin Core, allowing for independent control over their startup, interruption, and shutdown. It hides the underlying implementation details and focuses on function names and usage requirements.

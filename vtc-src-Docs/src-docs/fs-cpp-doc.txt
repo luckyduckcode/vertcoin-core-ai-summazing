@@ -1,0 +1,21 @@
+This code defines the `fsbridge` namespace containing helper functions related to file system operations in the Bitcoin Core project. It specifically addresses platform-specific differences between Windows and non-Windows systems.
+
+**Key Points:**
+
+- **`fopen` function:**
+    - A wrapper around the platform-specific `fopen` function, handling UTF-8 encoding for file paths on Windows.
+
+- **`AbsPathJoin` function:**
+    - Joins two paths, ensuring the base path is absolute.
+
+- **`FileLock` class:**
+    - Represents a file lock on a specific path.
+    - Provides platform-specific implementations for acquiring an exclusive lock on the file using `fcntl` on non-Windows and `LockFileEx` on Windows.
+    - Handles error reasons for both platforms.
+
+- **`get_filesystem_error_message` function:**
+    - Converts a platform-specific file system error message to a UTF-8 string.
+
+**Overall:**
+
+This code provides a cross-platform abstraction layer for file system operations, ensuring consistent behavior and error handling across different operating systems. It helps isolate platform-specific details within the `fsbridge` namespace, promoting cleaner and more portable code in the Bitcoin Core project.

@@ -1,0 +1,25 @@
+This code defines a custom map template named `indirectmap` in the Bitcoin Core project. It addresses a specific scenario where keys are pointers, but comparisons should be based on the values they point to, not the memory addresses themselves.
+
+Here's a breakdown of the key points:
+
+**Functionality:**
+
+* Stores key-value pairs, where keys are pointers and values are of type `T`.
+* Compares keys by dereferencing them and comparing the dereferenced values using a `DereferencingComparator`.
+* This allows storing objects and comparing them based on their actual content, not their memory addresses.
+
+**Key differences from a standard map:**
+
+* While a standard map with a `DereferencingComparator` would take pointers as keys, `indirectmap` takes the actual object (`K`) for comparison methods, making the code clearer.
+* It enforces the rule that objects pointed to by keys must not be modified in a way that affects the comparison results.
+
+**Provided methods:**
+
+* **`insert`**: Inserts a key-value pair (value interface).
+* **`find`**: Finds elements based on the pointed-to value (value interface).
+* **`lower_bound`**: Returns the first element with a value not less than the provided object (value interface).
+* **`erase`**: Removes elements based on the pointed-to value (value interface).
+* **`count`**: Counts the number of elements with the provided value (value interface).
+* Standard map methods like `empty`, `size`, `max_size`, `clear`, iterators (`begin`, `end`, `cbegin`, `cend`) are also provided with passthrough behavior.
+
+**Overall, this custom map implementation facilitates efficient storage and retrieval of objects using pointers while ensuring comparisons are based on the actual content they point to.**

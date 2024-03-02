@@ -1,0 +1,30 @@
+This code defines the `fs` namespace and related functionalities for working with the file system in the Bitcoin Core project. It addresses platform-specific differences between Windows and non-Windows systems and enforces safe path handling practices.
+
+**Key Points:**
+
+- **`fs::path` class:**
+    - A wrapper around the standard `std::filesystem::path` class.
+    - Disallows implicit string conversions and the `string()` method to prevent encoding issues on Windows.
+    - Provides safe overloads for path operations like creation, checking existence, and string conversion (`PathToString` and `PathFromString`).
+
+- **`fs` namespace functions:**
+    - **`absolute`:** Converts a path to its absolute form.
+    - **`exists`:** Checks if a path exists.
+    - **`quoted`:** Creates a quoted string for safe stream I/O.
+    - **`operator+`:** Concatenates two paths safely.
+    - **`copy_file`:** Copies a file with specified options.
+    - **`create_directories`:** Creates directories only if the leaf directory doesn't already exist as a symlink to a directory (workaround for a library issue).
+    - **`PathToString`:** Converts a `path` object to a byte string, using platform-specific encoding (UTF-8 on Windows).
+    - **`PathFromString`:** Converts a byte string to a `path` object, using platform-specific decoding (UTF-8 on Windows).
+
+- **`fsbridge` namespace:**
+    - Provides bridge functions for C stdio file operations.
+    - Contains the `FileLock` class for acquiring exclusive file locks.
+    - Offers `get_filesystem_error_message` to convert file system error messages.
+
+- **`tinyformat` namespace integration:**
+    - Disables path formatting in `tinyformat` to avoid encoding issues on Windows.
+
+**Overall:**
+
+This code establishes a safe and consistent approach to file system operations in Bitcoin Core, considering platform-specific details and preventing potential encoding problems. It promotes code clarity and avoids unexpected behavior across different operating systems.
