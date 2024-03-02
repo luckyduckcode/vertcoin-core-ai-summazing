@@ -1,0 +1,21 @@
+This code implements a port mapping functionality for the Bitcoin Core library. It allows the application to automatically configure routers/firewalls to forward incoming connections to specific ports on the local machine.
+
+**Key Points:**
+
+* **Supported Protocols:**
+    * NAT-PMP (if enabled and available)
+    * UPnP (if enabled and available)
+* **Configuration:**
+    * Enabled/disabled at runtime using `StartMapPort`, `InterruptMapPort`, `StopMapPort`.
+    * Specific protocols can be enabled/disabled individually using `MapPortProtoSetEnabled`.
+* **Thread-based:**
+    * Uses a separate thread (`g_mapport_thread`) to handle port mapping tasks for better performance and responsiveness.
+    * Employs an interrupt mechanism (`g_mapport_interrupt`) to switch between protocols or stop ongoing attempts.
+* **Automatic Re-announcements:**
+    * Periodically re-announces port mappings (e.g., every 20 minutes) to maintain them active.
+* **Error Handling:**
+    * Logs errors and warnings during the process (e.g., using `LogPrintf`).
+* **Discovery:**
+    * Optionally discovers the external IP address (if `fDiscover` is true) and adds it to the local node list.
+
+**Overall, this code provides a robust and flexible mechanism for automatic port mapping in the Bitcoin Core library, simplifying network connectivity and potentially improving user experience.**

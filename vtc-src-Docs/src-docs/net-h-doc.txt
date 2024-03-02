@@ -1,0 +1,24 @@
+## Summary of the code and its main points of function:
+
+This code defines the `CNode` class, which represents a network node in the Bitcoin P2P network. 
+
+Here are the main points of the code:
+
+* **Stores information about a peer:** 
+    * Connection information (socket, addresses, services)
+    * Version information
+    * Statistics (sent/received bytes, last message times, ping times)
+    * Tx relay information (whether to relay transactions, min fee filter)
+* **Provides methods for:**
+    * Receiving and processing messages from the peer
+    * Sending messages to the peer
+    * Tracking connection statistics
+    * Managing transaction relaying
+    * Getting and setting connection information
+
+The code also defines helper classes for:
+* Transport deserialization: Deserializing received data into messages
+* Transport serialization: Preparing messages for sending over the network
+
+Overall, this code is responsible for managing the communication and data exchange between a Bitcoin node and its peers on the P2P network.
+

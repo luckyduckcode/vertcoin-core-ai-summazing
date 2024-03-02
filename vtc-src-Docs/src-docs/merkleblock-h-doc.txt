@@ -1,0 +1,22 @@
+This code defines the `CMerkleBlock` and `CPartialMerkleTree` classes used in the Bitcoin Core library for handling Merkle trees and block filtering. It builds upon the concepts explained in the previous code snippet.
+
+**Key Points:**
+
+* **`CPartialMerkleTree` (Recap):**
+    * Represents a partial Merkle tree for efficient verification of transaction inclusion in a block.
+    * Provides functionalities for construction (`CPartialMerkleTree`), extraction of matched transactions (`ExtractMatches`), and serialization/deserialization (`SERIALIZE_METHODS`).
+* **`CMerkleBlock`:**
+    * Represents a partially Merkleized block containing:
+        * Block header.
+        * `CPartialMerkleTree` (`txn`) for efficient verification of transaction inclusion.
+        * Optionally, a list of matched transactions (`vMatchedTxn`) based on a bloom filter or provided transaction IDs (for testing purposes).
+    * **Constructors:**
+        * `CMerkleBlock(const CBlock&, CBloomFilter&)`: Constructs the Merkle block based on a block and a bloom filter, updating the filter for each transaction.
+        * `CMerkleBlock(const CBlock&, const std::set<uint256>&)`: Constructs the Merkle block based on a block and a set of transaction IDs.
+        * `CMerkleBlock()`: Empty constructor.
+    * **Serialization/Deserialization:**
+        * Provided using `SERIALIZE_METHODS` macro.
+* **Combined Constructor (`CMerkleBlock`):**
+    * This private constructor is used internally to consolidate the logic for different public constructors of `CMerkleBlock`.
+
+**Overall, this code provides a mechanism for creating and using partially Merkleized blocks, enabling efficient verification of transaction inclusion in the context of the Bitcoin protocol.**

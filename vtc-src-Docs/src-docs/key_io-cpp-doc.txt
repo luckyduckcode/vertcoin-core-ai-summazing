@@ -1,0 +1,28 @@
+This code is related to Bitcoin addresses and key encoding/decoding. It defines functions for:
+
+**1. Decoding various Bitcoin addresses:**
+
+* `DecodeDestination`: This function takes a string representing a Bitcoin address and converts it into an internal format (`CTxDestination`) used by the Bitcoin Core library. It supports various address formats, including:
+    * **Base58Check addresses (legacy)**: These are the traditional Bitcoin addresses starting with "1" (mainnet) or "3" (testnet).
+    * **Bech32 addresses**: These are newer addresses with a human-readable prefix and enhanced error correction capabilities.
+* It also handles invalid addresses and provides error messages and locations (optional).
+
+**2. Decoding private keys and extended public/private keys:**
+
+* `DecodeSecret`: Decodes a Base58Check encoded private key into a `CKey` object.
+* `DecodeExtPubKey`: Decodes a Base58Check encoded extended public key into a `CExtPubKey` object.
+* `DecodeExtKey`: Decodes a Base58Check encoded extended private key into a `CExtKey` object.
+
+**3. Encoding various Bitcoin addresses and keys:**
+
+* `EncodeDestination`: Takes a `CTxDestination` object and converts it back into a human-readable string representation (address).
+* `EncodeSecret`: Encodes a `CKey` object (private key) into a Base58Check encoded string.
+* `EncodeExtPubKey`: Encodes a `CExtPubKey` object (extended public key) into a Base58Check encoded string.
+* `EncodeExtKey`: Encodes a `CExtKey` object (extended private key) into a Base58Check encoded string.
+
+**4. Additional functions:**
+
+* `IsValidDestinationString`: Checks if a given string is a valid Bitcoin address based on its format.
+
+
+Overall, this code snippet provides functionalities for handling various Bitcoin address and key representations, making it easier to work with them in Bitcoin applications.

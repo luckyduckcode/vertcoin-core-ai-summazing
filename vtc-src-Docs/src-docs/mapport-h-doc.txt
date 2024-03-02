@@ -1,0 +1,17 @@
+This code defines a header file named `bitcoin_map_port.h` for the Bitcoin Core library. It provides functionalities for automatic port mapping using UPnP and NAT-PMP protocols.
+
+**Key Points:**
+
+* **Defines:**
+    * `MapPortProtoFlag` enum:
+        * Represents different port mapping protocols (NONE, UPnP, NAT_PMP).
+    * Functions:
+        * `StartMapPort`: Starts port mapping with specified protocols (UPnP, NAT-PMP).
+        * `InterruptMapPort`: Interrupts ongoing port mapping attempts.
+        * `StopMapPort`: Stops the port mapping thread and cleans up resources.
+* **Conditional Compilation:**
+    * `DEFAULT_UPNP` and `DEFAULT_NATPMP` constants define default enabled states for each protocol based on their availability during compilation (using `USE_UPNP` and `USE_NATPMP` macros).
+* **Header Guard:**
+    * `#ifndef` and `#endif` directives prevent multiple inclusions of this header file.
+
+**Overall, this header file provides an interface for controlling and interacting with the port mapping functionalities in the Bitcoin Core library.**

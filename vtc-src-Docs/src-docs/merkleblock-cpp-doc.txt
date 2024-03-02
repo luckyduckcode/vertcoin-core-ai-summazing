@@ -1,0 +1,26 @@
+This code defines the `CMerkleBlock` and `CPartialMerkleTree` classes used in the Bitcoin Core library for handling Merkle trees and block filtering.
+
+**Key Points:**
+
+* **`CMerkleBlock`:**
+    * Represents a partially Merkleized block containing:
+        * Block header.
+        * Partial Merkle tree (`txn`) constructed from transaction hashes and inclusion flags.
+        * Optionally, matched transactions (`vMatchedTxn`) based on a bloom filter or transaction IDs.
+    * Constructor (`CMerkleBlock`):
+        * Extracts transaction hashes and builds the partial Merkle tree based on inclusion flags from a bloom filter or provided transaction IDs.
+* **`CPartialMerkleTree`:**
+    * Represents a partial Merkle tree, which is a binary tree where leaves are transaction hashes and non-leaf nodes are hashes of their children.
+    * **Functions:**
+        * `CalcHash`: Calculates the hash of a node based on its children's hashes.
+        * `TraverseAndBuild`: Builds the Merkle tree iteratively, storing bits indicating if the node is an ancestor of any matched transaction and hashes for non-leaf nodes.
+        * `TraverseAndExtract`: Extracts matched transaction hashes and their corresponding positions in the original block based on the provided inclusion flags, traversing the tree recursively.
+        * `ExtractMatches`: Extracts matched transaction hashes and their positions from the Merkle tree, performing various checks for potential inconsistencies or invalid data.
+    * **Construction:**
+        * Takes transaction hashes and inclusion flags as input.
+        * Calculates the tree height and builds the Merkle tree using `TraverseAndBuild`.
+* **Helper functions:**
+    * `BitsToBytes`: Converts a vector of booleans to a byte array.
+    * `BytesToBits`: Converts a byte array to a vector of booleans.
+
+**Overall, this code provides functionalities for constructing and interacting with partial Merkle trees, enabling efficient verification of transaction inclusion in Bitcoin blocks.**

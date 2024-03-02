@@ -1,0 +1,23 @@
+The provided code defines several classes related to network addresses in C++. Here's a breakdown of the key points:
+
+**Classes:**
+
+* **CNetAddr:** Represents a network address. It can store different types of addresses like IPv4, IPv6, Tor, I2P, and CJDNS. It provides various methods to check the type of address, its validity, and conversion to different formats (string, IP address, etc.).
+* **CSubNet:** Represents a subnet, which is a range of IP addresses. It stores the network address (starting point) and the netmask defining the range. It provides methods to check if an address belongs to the subnet.
+* **CService:** Combines a network address (CNetAddr) and a port number, forming a complete service endpoint. It inherits from CNetAddr and adds functionality to handle ports and convert the service to different string formats.
+
+**Key functionalities:**
+
+* **Address parsing and validation:** CNetAddr can parse various address formats (strings, binary data) and validate their correctness based on the address type.
+* **Address type identification:** CNetAddr can determine the type of address stored (IPv4, IPv6, Tor, etc.)
+* **Conversion between formats:** CNetAddr and CService can be converted to different formats like string representations, IP addresses, and binary data for network communication.
+* **Subnet checking:** CSubNet can check if an IP address belongs to a specific subnet based on the network address and netmask.
+* **Service endpoint creation and manipulation:** CService combines an address and port, allowing creation and manipulation of service endpoints used for network communication.
+
+**Additional notes:**
+
+* The code uses different network byte order conventions depending on the context (e.g., big-endian for IPv4 addresses).
+* The code defines helper functions for serialization and deserialization of these classes for network communication or storage.
+* Some specific functionalities like handling Tor and I2P addresses involve parsing specific address formats.
+
+Overall, this code provides a set of C++ classes for handling network addresses, subnets, and service endpoints, offering functionalities for parsing, validation, conversion, and manipulation.
