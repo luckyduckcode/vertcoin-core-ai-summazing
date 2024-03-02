@@ -1,0 +1,22 @@
+This code defines two functionalities related to consensus deployments within the Bitcoin Core project:
+
+**1. Version Bits Deployment Information:**
+
+- Defines a constant array `VersionBitsDeploymentInfo` containing information about specific deployments.
+- Each element in the array is a struct with the following fields:
+    - **name:** The name of the deployment (e.g., "testdummy", "taproot").
+    - **gbt_force:** (Currently unused) A boolean flag potentially indicating if the deployment should be forced in GetBlockTemplate.
+
+**2. Deployment Name Mapping:**
+
+- Defines a function `DeploymentName` that takes a `Consensus::BuriedDeployment` enum value as input.
+- This function maps the provided deployment code to a human-readable name.
+- It uses a switch statement to handle different deployment types:
+    - `DEPLOYMENT_HEIGHTINCB`: Maps to "bip34".
+    - `DEPLOYMENT_CLTV`: Maps to "bip65".
+    - `DEPLOYMENT_DERSIG`: Maps to "bip66".
+    - `DEPLOYMENT_CSV`: Maps to "csv".
+    - `DEPLOYMENT_SEGWIT`: Maps to "segwit".
+- The function includes an assertion to ensure the provided deployment code is valid and a default case to catch any missing cases that might be added in the future.
+
+In summary, this code provides a mechanism to associate human-readable names with different types of consensus deployments used in the Bitcoin network.

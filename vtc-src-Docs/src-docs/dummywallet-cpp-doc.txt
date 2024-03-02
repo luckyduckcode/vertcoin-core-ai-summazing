@@ -1,0 +1,24 @@
+This code defines a dummy implementation of the `WalletInitInterface` class and related functionalities in the Bitcoin Core project, indicating that the build does not include wallet support.
+
+**Key Points:**
+
+- **`DummyWalletInit` class:**
+    - Inherits from `WalletInitInterface`.
+    - All member functions related to wallet functionality simply return placeholders or throw errors, indicating the lack of support.
+    - The `Construct` function logs a message stating that wallet support is not compiled in.
+- **`AddWalletOptions` function:**
+    - Adds various command-line arguments related to wallet configuration to the `ArgsManager` object.
+    - These arguments are marked as hidden as they are not relevant in this build without wallet support.
+- **`g_wallet_init_interface`:**
+    - A global variable of type `const WalletInitInterface&` initialized with the `DummyWalletInit` instance.
+    - This provides a way to reference the dummy implementation for wallet-related functionalities.
+- **`MakeWalletLoader` function:**
+    - Belongs to the `interfaces` namespace.
+    - Throws a `std::logic_error` with the message "Wallet function called in non-wallet build.", indicating that wallet functionalities are not available in this build.
+
+**Overall:**
+
+This code serves two main purposes:
+
+1. **Informs users:** It clearly indicates that the Bitcoin Core build being used does not include wallet support and any attempt to use wallet-related functionalities will result in errors.
+2. **Provides a placeholder:** It establishes a dummy implementation for the `WalletInitInterface` and related functions to avoid compilation errors and maintain a consistent code structure, even in builds without wallet support.

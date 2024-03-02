@@ -1,0 +1,33 @@
+This code defines the `ExternalSigner` class and related functionalities for interacting with external signing programs in the Bitcoin Core project.
+
+**Key Points:**
+
+- **`ExternalSigner` class:**
+    - Represents an external signer program with properties like command to run, chain it supports, fingerprint, and name.
+    - Provides methods for:
+        - Enlisting available signers using the `Enumerate` function.
+        - Displaying addresses for descriptors using the `DisplayAddress` function.
+        - Obtaining transaction descriptors using the `GetDescriptors` function.
+        - Signing a partially signed transaction (PSBT) using the `SignTransaction` function.
+
+- **`Enumerate` function:**
+    - Takes the command to run, list of existing signers, and chain as input.
+    - Calls the external signer's `enumerate` command to get a list of available signers.
+    - Parses the response, checks for errors and fingerprints, and avoids duplicates.
+    - Creates `ExternalSigner` objects for valid signers and adds them to the provided list.
+
+- **`DisplayAddress` and `GetDescriptors` functions:**
+    - Take the signer's fingerprint and network argument as input.
+    - Call the external signer's corresponding commands (`displayaddress` and `getdescriptors`) to get the address or descriptors.
+    - Use the `RunCommandParseJSON` function to execute the command and parse the JSON response.
+
+- **`SignTransaction` function:**
+    - Takes a partially signed transaction (PSBT) and an error string reference as input.
+    - Checks if the signer's fingerprint matches any input master key fingerprint in the PSBT.
+    - Serializes the PSBT and builds the command to call the external signer's `signtx` command with standard input.
+    - Parses the signer's response and checks for errors.
+    - Decodes the PSBT returned by the signer and updates the input PSBT if successful.
+
+**Overall:**
+
+This code enables integration with external signing hardware wallets or software programs by providing a standardized interface for communication and signing transactions.

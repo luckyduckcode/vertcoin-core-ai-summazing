@@ -1,0 +1,32 @@
+This code defines a high-performance cache implementation called `cache` within the `CuckooCache` namespace. Here's a breakdown of its functionalities:
+
+**1. Purpose:**
+
+- Stores and retrieves elements efficiently, similar to a "cuckoo set" data structure.
+- Offers functionalities for insertion, deletion, and retrieval of elements.
+
+**2. Key Features:**
+
+- **Thread-safe read operations:** Concurrent read operations (without erase) are safe. 
+- **Write and erase require synchronization:** Write and erase operations require external synchronization (e.g., a lock) to avoid race conditions.
+- **Lazy garbage collection:** Elements marked for deletion are not immediately removed, but rather on subsequent insertions when space is needed.
+- **High performance:** Achieved through techniques like cuckoo hashing and bit-packed flags for memory efficiency.
+- **Tunable parameters:** Allows customization of factors like the number of elements and depth limit for insertion attempts.
+
+**3. Components:**
+
+- **`bit_packed_atomic_flags`:** Manages garbage collection flags for elements in the cache.
+- **`cache`:** The main cache class template, storing elements and providing various functionalities:
+    - **`setup` and `setup_bytes`:** Initialize the cache with a specific size or based on desired memory usage.
+    - **`insert`:** Inserts an element into the cache, potentially evicting another if necessary.
+    - **`contains`:** Checks if an element exists in the cache, optionally marking it for garbage collection.
+    - **`allow_erase` and `please_keep`:** Mark elements for deletion or prioritize keeping them during potential evictions.
+    - **`epoch_check`:** Manages the process of aging and potentially removing elements from different "epochs" within the cache.
+
+**4. Usage Notes:**
+
+- Requires external synchronization for write and erase operations.
+- Read operations require synchronization with the last insertion but not with concurrent read operations.
+- `contains(x, true)` followed by `contains(x, false)` on the same thread might always return true due to lazy garbage collection.
+
+Overall, this code provides a high-performance and memory-efficient cache implementation suitable for scenarios requiring fast insertion, retrieval, and potential deletion of elements, with considerations for proper synchronization in a multi-threaded environment.

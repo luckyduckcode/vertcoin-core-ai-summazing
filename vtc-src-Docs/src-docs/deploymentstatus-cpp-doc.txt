@@ -1,0 +1,25 @@
+This code performs several checks related to deployment functionalities in the Bitcoin Core project:
+
+**1. Sanity Checks for Deployment Enums:**
+
+- Verifies the validity of two enums related to deployments:
+    - `Consensus::BuriedDeployment`
+    - `Consensus::DeploymentPos`
+- Uses static assertions to ensure:
+    - `Consensus::DEPLOYMENT_TESTDUMMY` is a valid `Consensus::DeploymentPos`.
+    - `Consensus::MAX_VERSION_BITS_DEPLOYMENTS` is not considered a valid `Consensus::DeploymentPos`.
+    - Values of `Consensus::BuriedDeployment` do not overlap with valid `Consensus::DeploymentPos` values.
+
+**2. Lower Bound Check for `ValidDeployment` Function:**
+
+- The `ValidDeployment` function in Bitcoin Core only checks upper bounds for deployment validity.
+- This code snippet clarifies the lower bound by checking if the minimum possible value for each deployment enum is also a valid deployment.
+- It uses two template functions and static assertions to achieve this:
+    - `is_minimum(T, x)`: Checks if the value `x` of type `T` is the minimum value possible for the underlying type of `T`.
+- The code asserts that:
+    - `Consensus::DEPLOYMENT_HEIGHTINCB` is the minimum value for `Consensus::BuriedDeployment`.
+    - `Consensus::DEPLOYMENT_TESTDUMMY` is the minimum value for `Consensus::DeploymentPos`.
+
+**Overall:**
+
+This code ensures the proper functionality of deployment-related functions by performing sanity checks on the validity of deployment enums and clarifying the lower bound behavior of the `ValidDeployment` function.

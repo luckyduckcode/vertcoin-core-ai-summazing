@@ -1,0 +1,27 @@
+This code defines several functions related to the activation and enabling state of consensus deployments in the Bitcoin Core project.
+
+**1. Deployment Activation:**
+
+- **`DeploymentActiveAfter(..., Consensus::BuriedDeployment dep)`:**
+    - Checks if a deployment (`dep`) will be active for the next block based on the provided previous block index (`pindexPrev`) and consensus parameters (`params`).
+    - Uses the deployment height stored in `params` to determine activation.
+- **`DeploymentActiveAfter(..., Consensus::DeploymentPos dep)`:**
+    - Similar to the above function, but uses the `g_versionbitscache` to check the deployment status (`ThresholdState::ACTIVE`) for the next block based on the previous block index and consensus parameters.
+
+- **`DeploymentActiveAt(..., Consensus::BuriedDeployment dep)`:**
+    - Checks if a deployment (`dep`) is active for the current block based on the provided block index (`index`) and consensus parameters (`params`).
+    - Uses the deployment height stored in `params` to determine activation.
+- **`DeploymentActiveAt(..., Consensus::DeploymentPos dep)`:**
+    - Similar to the above function, but relies on `DeploymentActiveAfter` to check the activation for the previous block.
+
+**2. Deployment Enabling:**
+
+- **`DeploymentEnabled(..., Consensus::BuriedDeployment dep)`:**
+    - Checks if a deployment (`dep`) is enabled (can ever be active) based on the consensus parameters (`params`).
+    - A deployment is considered enabled if its deployment height in `params` is not set to the maximum integer value (`std::numeric_limits<int>::max()`).
+- **`DeploymentEnabled(..., Consensus::DeploymentPos dep)`:**
+    - Similar to the above function, but checks the `nStartTime` field of the corresponding deployment in `params.vDeployments`. A deployment is enabled if `nStartTime` is not set to `Consensus::BIP9Deployment::NEVER_ACTIVE`.
+
+**Overall:**
+
+This code provides helper functions to determine the activation and enabling state of deployments based on the current block, previous block, and consensus parameters. These functions are crucial for enforcing deployment logic within the Bitcoin Core consensus rules.

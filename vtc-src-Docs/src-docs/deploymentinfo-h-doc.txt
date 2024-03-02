@@ -1,0 +1,32 @@
+This code defines functionalities related to consensus deployments in the Bitcoin Core project, focusing on mapping deployment information to human-readable names:
+
+**1. Struct `VBDeploymentInfo`:**
+
+- Defines a structure to hold information about a deployment.
+    - **name:** A `const char*` pointing to the deployment's name (e.g., "bip34", "segwit").
+    - **gbt_force:** A boolean flag indicating whether GetBlockTemplate clients can safely ignore this rule in simplified usage (currently unused).
+
+**2. Global Variable `VersionBitsDeploymentInfo`:**
+
+- Declares a constant array named `VersionBitsDeploymentInfo`.
+- This array contains elements of type `VBDeploymentInfo` and stores information for various deployments defined in `Consensus::MAX_VERSION_BITS_DEPLOYMENTS`.
+
+**3. Function `DeploymentName` (overloaded):**
+
+- **First version:**
+    - Takes a `Consensus::BuriedDeployment` enum value (`dep`) as input.
+    - Asserts that the provided deployment code is valid.
+    - Calls the second version of `DeploymentName` with the corresponding `Consensus::DeploymentPos` value.
+- **Second version:**
+    - Takes a `Consensus::DeploymentPos` enum value (`pos`) as input.
+    - Uses the provided position (`pos`) to index the `VersionBitsDeploymentInfo` array and retrieve the corresponding `VBDeploymentInfo` element.
+    - Extracts the deployment name from the retrieved element using the `name` field and returns it.
+
+**4. Inline Function `DeploymentName`:**
+
+- This is an inline version of the second `DeploymentName` function.
+- It takes a `Consensus::DeploymentPos` value (`pos`) and directly accesses the `name` field of the corresponding element in the `VersionBitsDeploymentInfo` array, returning the deployment name.
+
+**Overall:**
+
+This code provides two ways to map deployment codes (`Consensus::BuriedDeployment` or `Consensus::DeploymentPos`) to their corresponding human-readable names stored in the `VersionBitsDeploymentInfo` array. The first version (`DeploymentName(Consensus::BuriedDeployment dep)`) offers a more generic approach, while the second and inline versions (`DeploymentName(Consensus::DeploymentPos pos)`) provide a more direct way to access the name using the deployment position.

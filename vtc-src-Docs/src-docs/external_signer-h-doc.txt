@@ -1,0 +1,22 @@
+This code defines the header file (`BITCOIN_EXTERNAL_SIGNER_H`) for the `ExternalSigner` class and related functions in the Bitcoin Core project. It acts as a declaration and provides documentation for the functionalities offered, without including the actual implementation details.
+
+**Key Points:**
+
+- **`ExternalSigner` class:**
+    - Represents an external signing program with details like command to run, supported chain, fingerprint, and name.
+    - Declaration of member variables:
+        - `m_command`: Command to interact with the signer.
+        - `m_chain`: Supported Bitcoin network (e.g., "main", "test").
+        - `m_fingerprint`: Master key fingerprint of the signer.
+        - `m_name`: Name of the signer.
+    - Declaration of public member functions without implementation details:
+        - Constructor: Creates an `ExternalSigner` object with provided information.
+        - `NetworkArg`: Returns a network argument string based on the `m_chain` value.
+        - `Enumerate`: (Static) Lists available signers from the given command and chain, adding them to the provided vector.
+        - `DisplayAddress`: Gets the address for a descriptor using the signer's `displayaddress` command.
+        - `GetDescriptors`: Gets transaction descriptors for a given account using the signer's `getdescriptors` command.
+        - `SignTransaction`: Signs a partially signed transaction (PSBT) using the signer's `signtransaction` command.
+
+**Overall:**
+
+This header file defines the interface for the `ExternalSigner` class, enabling interaction with external signing programs without exposing the specific implementation details. This allows for modularity and separation of concerns, promoting code maintainability and potential future changes without affecting other parts of the codebase.

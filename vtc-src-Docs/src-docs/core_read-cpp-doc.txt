@@ -1,0 +1,24 @@
+This code defines functionalities related to parsing and decoding different data formats in the Bitcoin Core software.
+
+**Key functionalities:**
+
+* **Script Parsing:**
+    * `ParseScript`: parses a script string into a `CScript` object representing the script program. It supports:
+        * Numbers (decimal or hex)
+        * Raw hex data
+        * Single-quoted strings
+        * Opcodes (using `ParseOpCode`)
+    * `CheckTxScriptsSanity`: checks if all input and output scripts of a transaction have valid opcodes and sizes.
+* **Transaction Decoding:**
+    * `DecodeTx`: attempts to decode a transaction from hex data considering both extended serialization (supporting witness data) and legacy serialization (without witness). It prioritizes the output that passes the `CheckTxScriptsSanity` check.
+    * `DecodeHexTx`: decodes a transaction from a hexadecimal string using `DecodeTx`.
+* **Block Decoding:**
+    * `DecodeHexBlockHeader`: decodes a block header from a hexadecimal string.
+    * `DecodeHexBlk`: decodes a block from a hexadecimal string.
+* **Hash Parsing:**
+    * `ParseHashStr`: parses a hexadecimal string into a 256-bit hash (`uint256`).
+* **UniValue Processing:**
+    * `ParseHexUV`: parses a hexadecimal string from a `UniValue` object.
+    * `ParseSighashString`: parses a string representation of sighash type into an integer code.
+
+**Overall, this code provides essential tools for working with various data formats used in Bitcoin transactions and blocks, facilitating data exchange and manipulation within the Bitcoin Core software.**
