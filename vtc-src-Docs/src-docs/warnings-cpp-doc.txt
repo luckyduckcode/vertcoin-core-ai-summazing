@@ -1,0 +1,22 @@
+## Summary of the Code:
+
+This code manages the display and retrieval of warnings within the Bitcoin Core software.
+
+**Key Points:**
+
+* **Global variables:**
+    * `g_warnings_mutex`: Mutex for thread-safe access to warning data.
+    * `g_misc_warnings`: Stores miscellaneous warning messages.
+    * `fLargeWorkInvalidChainFound`: Indicates if a potentially invalid chain with high work was detected.
+* **Functions:**
+    * `SetMiscWarning(const bilingual_str& warning)`: Sets a specific miscellaneous warning message.
+    * `SetfLargeWorkInvalidChainFound(bool flag)`: Sets the flag indicating a potential chain inconsistency.
+    * `GetWarnings(bool verbose)`: Retrieves warning messages, with an option for verbose output.
+
+**Overall Function:**
+
+* This code provides a centralized mechanism to manage warnings in the software.
+* Different parts of the code can set specific warnings using `SetMiscWarning`.
+* The `GetWarnings` function allows displaying concise or verbose warning messages at different points in the application, depending on the `verbose` flag.
+* This helps users be aware of potential issues like pre-release software usage, chain inconsistencies, or other relevant information.
+

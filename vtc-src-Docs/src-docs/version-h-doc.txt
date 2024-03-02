@@ -1,0 +1,19 @@
+## Summary of the Code
+
+This code defines several constants related to **network protocol versioning** in the Bitcoin Core software. These constants specify the different versions used for communication and features supported by different client versions.
+
+**Key Points:**
+
+* **`PROTOCOL_VERSION`:** This is the current, official protocol version used by the software.
+* **`INIT_PROTO_VERSION`:** This is the initial protocol version used during connection establishment.
+* **`MIN_PEER_PROTO_VERSION`:** This is the minimum supported protocol version for peers. Clients with older versions will be disconnected.
+* **`BIP0031_VERSION`:** This marks the version at which BIP 31 (protocol for pong messages) is enabled.
+* **`NO_BLOOM_VERSION`:** Versions after this one require the `NODE_BLOOM` capability for "filter*" commands.
+* **`SENDHEADERS_VERSION`:** Versions after this one introduce the "sendheaders" command and announce blocks with headers.
+* **`FEEFILTER_VERSION`:** Versions after this one support the "feefilter" command for peers to filter based on transaction fees.
+* **`SHORT_IDS_BLOCKS_VERSION`:** Versions after this one enable short-id based block download.
+* **`INVALID_CB_NO_BAN_VERSION`:** Versions after this one avoid banning peers for sending invalid compact blocks.
+* **`WTXID_RELAY_VERSION`:** Versions after this one support the "wtxidrelay" command for wtxid-based transaction relay.
+
+These constants ensure compatibility between different client versions and enable new features as the network evolves.
+
