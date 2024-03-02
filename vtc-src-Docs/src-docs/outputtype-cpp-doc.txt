@@ -1,0 +1,36 @@
+This code defines functions related to different output types used in Bitcoin transactions and how they correspond to destination addresses. Here's a breakdown of its key points:
+
+**1. Output Types:**
+
+* The code defines an `OutputType` enum with possible values:
+    * `LEGACY`: Represents the traditional pay-to-public-key-hash (P2PKH) output type used in early Bitcoin versions.
+    * `P2SH_SEGWIT`: Pay-to-script-hash (P2SH) output type for SegWit transactions.
+    * `BECH32`: Bech32 encoding for native SegWit outputs.
+    * `BECH32M`: Bech32m encoding for taproot outputs (not fully supported yet).
+
+**2. Parsing and Formatting:**
+
+* `ParseOutputType` function converts a string representation (e.g., "legacy", "bech32") to the corresponding `OutputType` enum value.
+* `FormatOutputType` function converts an `OutputType` enum value back to its string representation.
+
+**3. Deriving Addresses from Keys:**
+
+* `GetDestinationForKey` function takes a public key (`CPubKey`) and an `OutputType`, and returns the corresponding destination address (where the funds can be sent).
+    * For `LEGACY`, it returns the P2PKH address derived from the public key.
+    * For `P2SH_SEGWIT` and `BECH32`, it creates a witness script using the public key, hashes it, and returns the resulting address depending on the chosen output type.
+* `GetAllDestinationsForKey` function returns all possible destinations for a given public key, considering both compressed and uncompressed key formats.
+
+**4. Adding Scripts and Deriving Addresses:**
+
+* `AddAndGetDestinationForScript` function:
+    * Adds a script to a keystore (used for signing transactions).
+    * Based on the provided `OutputType`, it derives a destination address from the script and returns it.
+    * It also adds the necessary scripts to the keystore for recognizing transactions spending these outputs.
+
+**5. Identifying Output Type from Address:**
+
+* `OutputTypeFromDestination` function tries to determine the `OutputType` associated with a given destination address.
+    * It checks the address format (P2PKH, script hash, witness address) and returns the corresponding output type if recognized.
+    * It returns `std::nullopt` if the address format is not supported.
+
+**In summary, this code provides functionalities for working with different Bitcoin output types, address derivation, and script management.**

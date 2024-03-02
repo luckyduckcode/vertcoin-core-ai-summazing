@@ -1,0 +1,22 @@
+This code defines data structures and functions related to banned network entities in Bitcoin. Here's a summary of its key points:
+
+**1. `CBanEntry`:**
+   - Represents a single entry in the ban list, containing:
+      - Version number of the entry format. (Currently 1)
+      - Creation time of the ban entry.
+      - Time until which the ban is valid.
+
+**2. `banmap_t`:**
+   - A map data structure that stores banned entries.
+   - Uses subnet addresses (represented by the `CSubNet` class) as keys.
+   - Maps each subnet address to a corresponding `CBanEntry` object containing the ban details.
+
+**3. Serialization (`ToJson` and `BanMapToJson`):**
+   - Provide functions to convert `CBanEntry` objects and the entire `banmap_t` map into JSON format.
+   - The JSON format is suitable for storing or transmitting ban information.
+
+**4. Deserialization (`CBanEntry` constructor and `BanMapFromJson`):**
+   - Provide functions to convert JSON data back into `CBanEntry` objects and populate the `banmap_t` map.
+   - Validate the JSON data to ensure it has the expected format and values before processing.
+
+**In essence, this code provides the foundation for managing banned IP addresses or subnets in the Bitcoin network.**

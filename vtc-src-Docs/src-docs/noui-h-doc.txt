@@ -1,0 +1,25 @@
+This code defines functions and functionalities related to message handling for a Bitcoin node running without a graphical user interface (GUI). Here's a summary of its key points:
+
+**1. Non-GUI Message Handlers:**
+
+* **`noui_ThreadSafeMessageBox`:**
+    * Displays a message with a specified style (error, warning, information) and caption.
+    * Logs the message to the console for non-GUI environments.
+* **`noui_ThreadSafeQuestion`:**
+    * Intended to display a message, caption, and ask the user a question.
+    * Currently not implemented, it logs the message and question to the console instead.
+* **`noui_InitMessage`:**
+    * Logs an initialization message to the console.
+
+**2. Signal Handling:**
+
+* **`noui_connect`:**
+    * Connects the above message handlers to the corresponding signals emitted by the Bitcoin node, ensuring messages are logged or displayed without the GUI.
+* **`noui_test_redirect`:**
+    * Redirects all message handlers to use `LogPrintf` instead of displaying them.
+    * This is useful for testing scenarios where expected errors occur and their output needs to be logged for verification.
+* **`noui_reconnect`:**
+    * Disconnects the redirected handlers and reconnects the original message handlers after testing.
+
+**In essence, this code provides a mechanism to display or log essential messages and prompts even when running a Bitcoin node without a user interface.**
+

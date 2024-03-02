@@ -1,0 +1,32 @@
+This code defines classes and functions related to managing network permissions in the Bitcoin Core project. Here's a summary of its main points:
+
+**1. `NetPermissionFlags`:**
+
+* This enum defines different flags representing permissions granted to network connections (e.g., `BloomFilter`, `Relay`, `Download`).
+* Each flag has a corresponding bit in the underlying integer representation.
+* It provides helper functions for:
+    * Combining flags using the bitwise OR operator (`|`).
+    * Checking if a specific flag is present in a set of flags (`HasFlag`).
+    * Adding a flag to a set of flags (`AddFlag`).
+    * Removing the `Implicit` flag (`ClearFlag`).
+
+**2. `NetPermissions` class:**
+
+* This class stores a set of `NetPermissionFlags` in the `m_flags` member.
+* It provides static methods for:
+    * Converting a set of flags to a list of human-readable permission names (`ToStrings`).
+    * Checking if a specific flag is present in the set (`HasFlag`).
+    * Adding a flag to the set (`AddFlag`).
+    * Removing the `Implicit` flag while ensuring the resulting state is valid (`ClearFlag`).
+
+**3. `NetWhitebindPermissions`:**
+
+* This class inherits from `NetPermissions` and adds a `m_service` member to store a specific network address (including port) associated with the permissions.
+* It provides a static method `TryParse` to parse a string in the format "permission@address:port" and populate an object of this class.
+
+**4. `NetWhitelistPermissions`:**
+
+* This class inherits from `NetPermissions` and adds a `m_subnet` member to store a subnet of IP addresses associated with the permissions.
+* It provides a static method `TryParse` to parse a string in the format "permission/subnet" and populate an object of this class.
+
+**Overall, this code provides a structured way to handle different network permission levels, whitelisted addresses, and subnets in the Bitcoin Core project.**

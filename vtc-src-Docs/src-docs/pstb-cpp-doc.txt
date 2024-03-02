@@ -1,0 +1,15 @@
+## Partially Signed Transaction (PSBT) in Bitcoin
+
+This code defines the `PartiallySignedTransaction` class and related functions for working with Partially Signed Bitcoin Transactions (PSBTs). PSBTs are a mechanism used to securely share and collaborate on signing transactions.
+
+**Key Points:**
+
+* **`PartiallySignedTransaction`:** Represents a partially signed transaction with inputs, outputs, and optional unknown data.
+* **Inputs:** Each input can have a scriptSig (partially signed signature script), witness script, and information about redeem scripts and HD key paths.
+* **Outputs:** Each output can have redeem script, witness script, and HD key paths.
+* **Signing:** The `SignPSBTInput` function attempts to sign an input using a provided signing provider and precomputed transaction data.
+* **Finalizing:** The `FinalizePSBT` function ensures all inputs have complete signatures and combines partial signatures if necessary.
+* **Combining:** The `CombinePSBTs` function merges multiple PSBTs, ensuring consistency and rejecting mismatched transactions.
+* **Encoding/Decoding:** Functions like `DecodeBase64PSBT` and `DecodeRawPSBT` handle converting PSBTs to and from their serialized forms (base64 or raw data).
+
+**Overall, this code provides functionalities for constructing, signing, finalizing, combining, and encoding/decoding PSBTs, facilitating collaborative transaction signing in the Bitcoin network.**

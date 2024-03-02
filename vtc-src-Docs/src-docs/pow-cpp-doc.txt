@@ -1,0 +1,33 @@
+This code defines functions related to calculating the difficulty (target hash) for mining new blocks in the Verthash cryptocurrency. Here's a breakdown of its key points:
+
+**1. Determining Network and Block Height:**
+
+* The code first checks the network (Mainnet or Testnet) and the current block height (`nHeight`) to determine the applicable difficulty adjustment rules.
+
+**2. Difficulty Adjustment Logic:**
+
+* **Mainnet:**
+    * Before block 26754, it uses the Bitcoin difficulty adjustment algorithm (`GetNextWorkRequired_Bitcoin`).
+    * At block 208301, it sets a specific difficulty.
+    * During specific block ranges around the Lyra2REv3 and Verthash hardforks, it sets a forced difficulty.
+    * Otherwise, it uses the Kimoto Gravity Well (KGW) algorithm with adjustments for Verthash fork blocks.
+* **Testnet:**
+    * Before block 2116, it uses the Bitcoin difficulty adjustment algorithm.
+    * During the Verthash fork block range, it sets the minimum difficulty.
+    * Otherwise, it uses the KGW algorithm with adjustments for Verthash fork blocks.
+* **Regtest:**
+    * It always uses the maximum difficulty.
+
+**3. Kimoto Gravity Well (KGW) Algorithm:**
+
+* This algorithm dynamically adjusts the difficulty based on the actual time between blocks compared to the target block time.
+* It considers a range of past blocks and their difficulty to calculate a new target difficulty.
+* The code implements checks and adjustments specific to Verthash fork blocks on both mainnet and testnet.
+
+**4. Other Functions:**
+
+* `GetNextWorkRequired_Bitcoin` implements the original Bitcoin difficulty adjustment algorithm.
+* `CalculateNextWorkRequired` is a helper function used for calculating difficulty based on a specific time period.
+* `CheckProofOfWork` verifies if a mined block hash meets the difficulty target.
+
+**In summary, this code implements a dynamic difficulty adjustment mechanism for the Verthash cryptocurrency, taking into account network, block height, and specific hardfork considerations.**

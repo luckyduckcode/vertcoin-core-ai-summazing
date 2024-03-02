@@ -1,0 +1,10 @@
+This code defines a data structure called `PSBT` (Partially Signed Bitcoin Transaction) which is used to represent a partially signed Bitcoin transaction. It includes features to allow for multiple parties to collaborate on signing a transaction without revealing their private keys to each other.
+
+Here is a summary of the main points of the code:
+
+* **PSBTInput:** This structure represents an input to the transaction. It includes information about the previous output being spent, the scriptPubKey associated with it, and any partial signatures or pre-images that have been provided.
+* **PSBTOutput:** This structure represents an output of the transaction. It includes information about the scriptPubKey of the output and any additional information that may be needed to spend it, such as HD key paths.
+* **PSBTGlobal:** This structure stores global information about the PSBT, such as the BIP32 version and any vendor-specific data.
+* **Serialization and Deserialization:** The code provides functions for serializing and deserializing PSBTs to and from streams. This allows PSBTs to be easily exchanged between different parties.
+
+Overall, this code provides a way to represent and manipulate partially signed Bitcoin transactions in a secure and efficient manner.

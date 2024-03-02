@@ -1,0 +1,22 @@
+This code defines functions to serialize and deserialize information about banned network entities in Bitcoin. Here's a breakdown of its key points:
+
+**1. CBanEntry:**
+   - Represents a single entry in the ban list, containing:
+      - Version number of the entry format.
+      - Creation time of the ban entry.
+      - Time until which the ban is valid.
+
+**2. Serialization (`ToJson`):**
+   - Converts a `CBanEntry` object into a JSON object.
+   - Includes the version number, creation time, and ban duration in the JSON object.
+
+**3. Deserialization (`BanMapFromJson`):**
+   - Converts a JSON array representing banned entries into a `banmap_t` map.
+   - Iterates over each JSON object in the array.
+   - For each object:
+      - Validates the version number.
+      - Parses the banned subnet address from the JSON object.
+      - Creates a `CBanEntry` object from the parsed information.
+      - Adds the entry to the `banmap_t` map using the subnet address as the key.
+
+**In summary, this code provides a mechanism to store and retrieve information about banned IP addresses or subnets in the Bitcoin network.**
