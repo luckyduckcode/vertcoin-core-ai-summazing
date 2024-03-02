@@ -1,0 +1,32 @@
+This code snippet serves as a header file defining functions for managing the shutdown process of a Bitcoin node. It primarily focuses on **declaring functions without providing their implementation.**
+
+Here's a breakdown of the key aspects:
+
+**1. Header Guard:**
+
+* `#ifndef BITCOIN_SHUTDOWN_H` and `#define BITCOIN_SHUTDOWN_H` are used as a header guard to prevent the file from being included multiple times, avoiding compilation errors.
+
+**2. Function Declarations:**
+
+* The code declares several functions for managing shutdown:
+    * **`AbortNode`:** Initiates shutdown with an error message.
+    * **`InitShutdownState`:** Initializes the internal state for shutdown (must be called before other functions).
+    * **`StartShutdown`:** Requests the node to shut down.
+    * **`AbortShutdown`:** Clears the shutdown request (only during initialization or unit tests).
+    * **`ShutdownRequested`:** Checks if a shutdown request is ongoing.
+    * **`WaitForShutdown`:** Waits for the shutdown process to complete (can only be used from a single thread).
+
+**3. Comments:**
+
+* Comments provide valuable explanations for each function:
+    * They describe the purpose, expected behavior, and usage constraints.
+
+**4. Include:**
+
+* The line `#include <util/translation.h>` suggests that this code might use functionalities related to translating messages (possibly for user interfaces).
+
+**5. No Implementation:**
+
+* It's important to note that this code snippet only declares the functions and doesn't provide their actual implementation. The implementation details would likely be found in separate source files.
+
+In essence, this header file serves as a reference point for other parts of the code to interact with the shutdown functionality of the Bitcoin node.

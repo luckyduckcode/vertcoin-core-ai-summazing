@@ -1,0 +1,39 @@
+## Code Summary and Functionality
+
+This code provides a set of thread-safe locking mechanisms for the Bitcoin Core project. Here's a breakdown of its key aspects:
+
+**1. Mutex Protection:**
+
+* It defines various classes like `RecursiveMutex` and `Mutex` that are wrappers around standard C++ mutexes.
+* Functions like `LOCK`, `LOCK2`, and `TRY_LOCK` provide a convenient way to acquire and release mutexes with additional features.
+* `DebugLock` is used for basic locking with debug information.
+
+**2. Deadlock Prevention:**
+
+* The code utilizes internal data structures to track the order in which threads acquire locks.
+* `EnterCritical` checks for potential deadlocks and throws exceptions if a lock is requested in an inconsistent order compared to other held locks.
+
+**3. Double-Locking Detection:**
+
+* It prevents a thread from acquiring the same lock twice consecutively, which can lead to unexpected behavior.
+* `AssertLockNotHeld` throws an exception if a thread attempts to acquire a lock it already holds.
+
+**4. Lock Information and Management:**
+
+* Functions like `CheckLastCritical` and `AssertLockHeld` allow checking if a specific lock is currently held by the thread.
+* `LeaveCritical` and `DeleteLock` are used to release locks and clean up associated data structures.
+* `LocksHeld` returns a string containing information about all locks currently held by the thread.
+
+**5. Thread-local Storage:**
+
+* The code utilizes thread-specific storage to keep track of the lock acquisition order for each thread.
+
+**6. Semaphores:**
+
+* The `CSemaphore` class implements a semaphore object for controlling access to shared resources.
+* It allows waiting and signalling operations with thread-safety.
+* `CSemaphoreGrant` provides an RAII-style way to manage semaphore grants.
+
+**Overall, this code aims to provide secure and robust locking mechanisms with features to prevent deadlocks, double locking, and offer functionalities for managing lock information and semaphores in a multi-threaded environment.**
+
+**Note:** This explanation is based on the provided code snippet and might not reflect the entire functionality within the context of the Bitcoin Core project.

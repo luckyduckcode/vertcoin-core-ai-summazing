@@ -1,0 +1,31 @@
+## This code generates random numbers for the Bitcoin protocol, prioritizing security.
+
+**Key points:**
+
+* **Different levels of randomness:**
+    * **Fast seeding:** Uses readily available sources, good for non-critical tasks.
+    * **Slow seeding (RandAddDynamicEnv):** Uses stronger, slower sources like system entropy and timestamps, recommended for security-sensitive tasks.
+* **Security focus:**
+    * Emphasizes the importance of strong randomness for cryptographic applications.
+    * Highlights potential weaknesses and limitations of different methods.
+    * Includes functions for checking the health and availability of underlying randomness sources.
+* **Data sources for seeding (RandAddDynamicEnv):**
+    * System clocks (various types)
+    * Resource usage
+    * Specific files on Linux systems (/proc)
+    * System information (OS version, CPU info, etc.) using sysctl calls (if available)
+    * Stack and heap locations
+    * Hostname
+    * Network interfaces
+    * Kernel information (uname on Linux)
+    * Paths and file system information
+    * Environment variables
+    * Process, thread, user, and group IDs
+    * Compiler information
+    * Hardware information (CPUID on x86, sysctl on others)
+* **Additional details:**
+    * Uses CSHA512 for hashing the collected data.
+    * Written in C++.
+    * Leverages OS-specific features when available.
+
+**Overall, this code aims to provide a secure and efficient way to generate random numbers for various aspects of the Bitcoin system, placing a strong emphasis on security.**

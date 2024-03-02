@@ -1,0 +1,34 @@
+## Code Explanation and Functionality Summary
+
+This code implements a system for:
+
+**1. Thread-safe locking and deadlock detection:**
+
+* It uses various data structures like `LockData`, `LockStack`, `LockOrders`, and `InvLockOrders` to track acquired locks and their order across different threads.
+* Functions like `EnterCritical` are used to acquire a lock (mutex) with deadlock detection. 
+* The code ensures that threads acquire locks in a consistent order to prevent deadlocks. 
+* If an attempt is made to acquire a lock in an inconsistent order, `potential_deadlock_detected` is thrown, indicating a potential deadlock scenario.
+
+**2. Double lock detection:**
+
+* It prevents a thread from acquiring the same lock twice consecutively, which can lead to undefined behavior.
+* `double_lock_detected` is thrown if a thread attempts to acquire the same lock it already holds.
+
+**3. Lock checking and management:**
+
+* Functions like `CheckLastCritical` and `AssertLockHeldInternal` allow checking if a specific lock is currently held by the thread.
+* `AssertLockNotHeldInternal` checks if a specific lock is not held by the thread.
+* `LeaveCritical` and `DeleteLock` are used to release locks and clean up associated data structures.
+
+**4. Lock information gathering:**
+
+* `LocksHeld` returns a string containing information about all locks currently held by the thread.
+
+**5. Thread-local storage:**
+
+* The code utilizes thread-specific storage to keep track of the lock acquisition order for each thread.
+
+**Overall, this code aims to provide thread-safe locking mechanisms with features to detect and prevent potential deadlocks and double locking issues.**
+
+**Note:** This explanation is limited to the provided code snippet and might not reflect the entire functionality within the context of the Bitcoin Core project.
+

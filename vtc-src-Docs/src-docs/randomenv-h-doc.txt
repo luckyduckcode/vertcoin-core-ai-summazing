@@ -1,0 +1,14 @@
+## This code defines functions to gather environment data for generating random numbers in Bitcoin.
+
+**Here's a summary:**
+
+* **Header file:** `bitcoin_randomenv.h`
+* **Purpose:** Defines two functions used to gather environment data for generating random numbers in the Bitcoin system.
+* **Functions:**
+    * `RandAddDynamicEnv(CSHA512& hasher)`: Gathers **dynamic** (changing over time) environment data and adds it to the provided `CSHA512` object (`hasher`). This data is used for **seeding** the random number generator.
+    * `RandAddStaticEnv(CSHA512& hasher)`: Gathers **static** (unchanging) environment data and adds it to the `CSHA512` object. This data is also used for seeding the random number generator.
+* **CSHA512:** This is a cryptographic hash function used to combine the collected data and create a unique seed for the random number generator.
+* **Seeding:** Providing a good seed is crucial for generating strong and unpredictable random numbers. This code aims to gather diverse data from the environment to create a strong seed. 
+
+**Note:** This header file only defines the functions and doesn't contain the actual implementation details of how the environment data is gathered. The implementation is likely located in a separate source file.
+

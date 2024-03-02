@@ -1,0 +1,31 @@
+This code defines a class named `Span` in the `bitcoin` project, likely intended to offer similar functionality to the upcoming C++20 `std::span` feature. Here's a breakdown of its key aspects:
+
+**Functionality:**
+
+* `Span` acts as a lightweight wrapper around a contiguous sequence of objects.
+* It provides access and manipulation methods for the underlying elements without directly owning them.
+* It offers functionalities like:
+    * Accessing elements (`data()`, `begin()`, `end()`, `[]` operator)
+    * Getting size (`size()`, `size_bytes()`)
+    * Checking emptiness (`empty()`)
+    * Slicing (`subspan()`)
+    * Comparing Spans (`==`, `!=`, `<`, `<=`, `>`, `>=`)
+
+**Safety Features:**
+
+* It includes assertions and error checks (`ASSERT_IF_DEBUG`) to ensure safe usage, especially for out-of-bounds access or invalid constructions.
+* It restricts constructing Spans from temporaries to prevent dangling references.
+* It provides helper functions for safely casting to byte spans (`AsBytes`, `AsWritableBytes`).
+
+**Compatibility and Limitations:**
+
+* It aims to be compatible with various containers and data types through automatic conversions and deduction guides.
+* It supports constructing Spans from:
+    * Pointers and sizes/iterators
+    * Arrays
+    * Objects with `data()` and `size()` methods (e.g., `std::vector`, `std::string`)
+* It considers reference lifetimes to prevent dangling references.
+
+**Overall:**
+
+This code provides a temporary implementation of `Span` until the official C++20 feature becomes widely available. It offers core functionalities for working with contiguous memory regions while prioritizing safety and compatibility.

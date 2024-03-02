@@ -1,0 +1,37 @@
+## CScheduler Class in Bitcoin Explained
+
+This code defines a C++ class named `CScheduler` used for managing task scheduling in the Bitcoin system. Here's a breakdown of its key functionalities:
+
+**Functionality:**
+
+* **Scheduling Tasks:**
+    * Schedules tasks (functions) to be executed at a specific time or after a delay.
+    * Supports scheduling tasks to repeat every certain interval.
+* **Thread Safety:**
+    * Uses mutexes to ensure safe access to the task queue and prevent race conditions when multiple threads are accessing it.
+* **Monitoring:**
+    * Provides functions to retrieve information about the scheduled tasks, such as the number of tasks waiting and the estimated time of the next task.
+* **Testing:**
+    * Includes a function `MockForward` to simulate time advancement for testing purposes.
+
+**Components:**
+
+* **`taskQueue`:** A multimap that stores tasks sorted by their execution time.
+* **`newTaskMutex`:** A mutex used to protect access to the `taskQueue`.
+* **`nThreadsServicingQueue`:** Tracks the number of threads currently processing the task queue.
+* **`newTaskScheduled`:** A condition variable used to notify waiting threads about new tasks or changes in the queue.
+
+**Key Functions:**
+
+* **`serviceQueue`:** This function is the main loop of the scheduler. It continuously checks the task queue and executes tasks when their scheduled time arrives.
+* **`schedule`:** Schedules a function to be executed at a specific time.
+* **`scheduleEvery`:** Schedules a function to be executed repeatedly at a fixed interval.
+* **`getQueueInfo`:** Provides information about the scheduled tasks, including the number of tasks and their estimated execution times.
+* **`AreThreadsServicingQueue`:** Checks if any threads are currently processing tasks in the queue.
+
+**Additional Notes:**
+
+* The `SingleThreadedSchedulerClient` class is a helper class that simplifies scheduling tasks from a single thread.
+* The code utilizes various synchronization mechanisms like mutexes and condition variables to ensure thread safety and prevent data corruption in a multi-threaded environment.
+
+**Overall, the CScheduler class provides a robust and efficient way to schedule tasks in the Bitcoin system, ensuring proper execution order and thread safety.**
