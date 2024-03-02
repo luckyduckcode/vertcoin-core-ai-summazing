@@ -1,0 +1,31 @@
+## Explanation and Summary of the Code:
+
+This code is for the `vertcoin-util` command-line utility and provides functionality related to proof-of-work (PoW) mining in the Vertcoin cryptocurrency.
+
+**Key functions:**
+
+* **`AppInitUtil`:** Initializes the application by:
+    * Setting up command-line argument parsing.
+    * Checking for chain settings and selecting the appropriate chain parameters.
+    * Handling help requests and version information display.
+* **`grind`:** This is the main command of the utility and performs the following:
+    * Takes a block header as input (represented as a hexadecimal string).
+    * Decodes the header and extracts its difficulty target.
+    * Spawns multiple threads to perform PoW mining in parallel.
+    * Each thread iterates through potential nonces, hashing the block header with different nonce values and comparing the hash against the difficulty target.
+    * If a thread finds a valid nonce (satisfying the difficulty target), it is stored in the original block header and the mining process stops.
+    * If no thread finds a valid nonce within a certain timeframe, the program exits with a failure message.
+* **`grind_task`:** This function is used by each thread in the `grind` command. It takes the following arguments:
+    * `nBits`: Difficulty target of the block.
+    * `header_orig`: Reference to the original block header.
+    * `offset`: Starting point for nonce exploration by the thread.
+    * `step`: Increment value used by the thread to iterate through nonces.
+    * `found`: Atomic boolean flag to indicate if a valid nonce was found by any thread.
+
+**Overall, this code provides a basic PoW mining tool for Vertcoin. It allows users to specify a block header and initiate mining to find a valid nonce that satisfies the network's difficulty target.**
+
+**Additional notes:**
+
+* The code uses various libraries for functionalities like command-line parsing, string manipulation, threading, and data structures.
+* Error handling is included to catch exceptions and display relevant messages to the user.
+* The code is specific to the Vertcoin blockchain and its PoW mining algorithm.

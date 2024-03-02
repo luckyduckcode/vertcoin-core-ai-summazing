@@ -1,0 +1,38 @@
+## Explanation of the code:
+
+This code defines the `CBigNum` class, which represents an arbitrary-precision integer using the GNU Multiple Precision Arithmetic Library (GMP).
+
+**1. Header Inclusion and Namespace:**
+
+* Lines 1-4: Include necessary header files (`serialize.h`, `version.h`), include standard libraries (`stdexcept`, `<stdint.h>`, `<vector>`), and include the GMP library `<gmp.h>`.
+* Line 6: Define the `Bitcoin` namespace for grouping related elements.
+
+**2. Error Handling:**
+
+* Lines 8-12: Define a `bignum_error` class that inherits from `std::runtime_error`. This class allows throwing exceptions related to `CBigNum` operations.
+
+**3. CBigNum Class:**
+
+* Lines 14-20: Declare the `CBigNum` class.
+* Lines 22-24: Define a private member `bn` of type `mpz_t` from the GMP library to store the actual bignum value.
+* Lines 26-34: Define the constructor `CBigNum()` that initializes the `bn` member using `mpz_init`.
+* Lines 36-44: Define the copy constructor `CBigNum(const CBigNum& b)` that initializes a new object by copying the `bn` member from the provided `b` object using `mpz_init` and `mpz_set`.
+* Lines 46-50: Define the copy assignment operator `operator=`, which assigns the value of another `CBigNum` object to the current object using `mpz_set`.
+* Line 52: Define the destructor `~CBigNum()` that deallocates the memory used by `bn` using `mpz_clear`.
+
+**4. Constructors from various data types:**
+
+* Lines 54-85: Define multiple constructors that allow initializing a `CBigNum` object from various data types like signed/unsigned characters, integers, long long integers, `uint256`, and vectors of unsigned characters. These constructors use `mpz_init`, `mpz_set_si`, `mpz_set_ui`, `mpz_import`, and `mpz_setvch` functions from GMP to convert the input data to the internal bignum representation.
+
+**5. Member functions:**
+
+* `bitSize()`: This function calculates and returns the size of the underlying bignum in bits using `mpz_sizeinbase`.
+* `setulong`, `getulong`, `getuint`, `getint`: These functions set or get the value of the bignum as an unsigned long, unsigned int, or signed int, respectively. They use `mpz_set_ui`, `mpz_get_ui`, and conditional statements for handling negative values.
+* `setuint256`, `setvch`: These functions set the value of the bignum from a `uint256` object or a vector of unsigned characters, respectively. They use `mpz_import` and `mpz_setvch` for conversion.
+* `getvch`: This function returns a vector of unsigned characters representing the bignum's value using `mpz_export`.
+* `SetDec`, `SetHex`, `SetHexBool`: These functions set the value of the bignum from a decimal string, hexadecimal string, or boolean value (interpreted as 0 or 1), respectively. They use `mpz_set_str` and conditional statements for handling boolean input.
+* `ToString`: This function converts the bignum to a string representation in a specified base (default base 10) using `mpz_get_str`.
+* `GetHex`, `GetDec`: These functions are convenience functions that call `ToString` with base 16 (hexadecimal) and base 10 (decimal), respectively.
+* `pow`, `pow_mod`, `mul_mod`, `inverse`, `gcd`, `isPrime`: These functions perform various mathematical operations on bignums, including exponentiation (with and without modulus), modular multiplication, modular inverse, greatest common divisor, primality testing, etc. They use corresponding GMP functions like `mpz_pow_ui`, `mpz_powm`, `mpz_mul`, `mpz_invert`, `mpz_gcd`, `mpz_probab_prime_p`, etc.
+* `SetCompact`, `GetCompact`: These functions handle the "compact" format used for representing difficulty targets in Bitcoin. They use bit shifting and conditional statements to convert between the compact format and the internal bignum representation.
+* `operator!`, `operator==`, etc.: These functions define various comparison and logical operators (`==`, `!=`, `<=`, `>=`, `<`, `>`, `+`,

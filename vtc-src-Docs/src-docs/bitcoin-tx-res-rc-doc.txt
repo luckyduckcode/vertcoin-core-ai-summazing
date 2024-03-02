@@ -1,0 +1,30 @@
+## Explanation and Summary of the Code:
+
+This code defines the version information for an executable named `vertcoin-tx.exe`. It uses the `VERSIONINFO` structure and various macros to specify details like:
+
+* **Company Name:** Vertcoin
+* **File Description:** vertcoin-tx (CLI Vertcoin transaction editor utility)
+* **File Version:** (obtained from `PACKAGE_VERSION` macro)
+* **Internal Name:** vertcoin-tx
+* **Legal Copyright:** (obtained from `COPYRIGHT_STR` macro)
+* **Legal Trademarks:** Information about the MIT license
+* **Original Filename:** vertcoin-tx.exe
+* **Product Name:** vertcoin-tx
+* **Product Version:** (obtained from `PACKAGE_VERSION` macro)
+* **Language:** Neutral - multilingual
+
+**Key points:**
+
+* The code uses two header files:
+    * `windows.h`: provides definitions for Windows functionalities like `VERSIONINFO`.
+    * `clientversion.h`: likely defines macros like `CLIENT_VERSION_MAJOR, CLIENT_VERSION_MINOR, CLIENT_VERSION_BUILD, PACKAGE_VERSION, and COPYRIGHT_STR`. These macros hold the specific version information for the Vertcoin software.
+* The code defines two macros:
+    * `VER_PRODUCTVERSION`: combines the client version information into a single macro.
+    * `VER_FILEVERSION`: sets the file version to be the same as the product version.
+* The rest of the code defines the `VERSIONINFO` structure with various sections:
+    * `StringFileInfo`: contains human-readable information in different languages.
+        * The code defines entries for the US English language (`040904E4`) with details like company name, file description, etc.
+    * `VarFileInfo`: specifies language information.
+        * The code sets the language to "neutral - multilingual" (decimal value `1252`).
+
+**In summary, this code provides the version information displayed in the properties of the `vertcoin-tx.exe` executable. It contains details about the software's creator, functionality, version, and licensing.**

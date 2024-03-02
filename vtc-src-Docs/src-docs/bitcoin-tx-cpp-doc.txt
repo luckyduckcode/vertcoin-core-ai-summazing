@@ -1,0 +1,25 @@
+## Summary of the code:
+
+This code provides a command-line tool named `vertcoin-tx` for creating and modifying Bitcoin transactions. It allows users to:
+
+* **Create a new empty transaction**
+* **Add or remove inputs and outputs to an existing transaction**
+* **Modify various transaction properties like version, locktime, and RBF opt-in**
+* **Sign a transaction with a provided private key**
+
+The code defines several functions to handle different functionalities:
+
+* **`AppInitRawTx`:** Initializes the tool by parsing command-line arguments and selecting the appropriate chain parameters.
+* **`RegisterSetJson` and `RegisterSet`:** Allow users to set values in registers using JSON or key-value pairs.
+* **`RegisterLoad`:** Loads JSON data from a file into a register.
+* **`ExtractAndValidateValue`:** Parses and validates a provided value for transaction outputs.
+* **`MutateTx...` functions:** These functions handle specific modifications to the transaction, such as:
+    * `MutateTxVersion`: Updates the transaction version.
+    * `MutateTxLocktime`: Sets the transaction locktime.
+    * `MutateTxRBFOptIn`: Enables Replace-By-Fee (RBF) for an input.
+    * `MutateTxAddInput`: Adds an input to the transaction.
+    * `MutateTxAddOut...` functions: Add different types of outputs to the transaction, like address-based, pubkey-based, multisig, data, and raw script outputs.
+    * `MutateTxDelInput` and `MutateTxDelOutput`: Delete an input or output from the transaction.
+* **`findSighashFlags`:** Parses and validates sighash flags for transaction signing.
+
+Overall, this code provides a versatile tool for manipulating Bitcoin transactions from the command line.

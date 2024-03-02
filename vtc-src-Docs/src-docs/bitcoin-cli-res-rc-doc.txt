@@ -1,0 +1,39 @@
+This code snippet defines the version information for the "vertcoin-cli" application, which is likely the command-line client for the vertcoin cryptocurrency. Here's the breakdown of its key points:
+
+**1. Includes:**
+
+* `windows.h`: This header file provides various functionalities specific to the Windows operating system, likely needed for defining the version information structure.
+* `clientversion.h`: This custom header file presumably holds the actual version information for the application, such as `CLIENT_VERSION_MAJOR`, `CLIENT_VERSION_MINOR`, and `CLIENT_VERSION_BUILD`.
+
+**2. Macros:**
+
+* `VER_PRODUCTVERSION`: This macro combines the major, minor, and build version information retrieved from the `clientversion.h` file.
+* `VER_FILEVERSION`: This macro simply sets the file version to the product version defined above.
+
+**3. Version Information Structure:**
+
+The code defines a structure called `VERSIONINFO` that conforms to the **VS_VERSION_INFO** structure used by Windows. This structure holds various information about the application version:
+
+* `FILEVERSION`: This section stores the version information defined in the macros above.
+* `PRODUCTVERSION`: This section also stores the same version information.
+* `FILEOS`: This section specifies the operating system the application is designed for (Windows 32-bit in this case).
+* `FILETYPE`: This section specifies the type of file (application in this case).
+
+**4. String Information Block:**
+
+* This block defines various string information about the application:
+    * `CompanyName`: Set to "Vertcoin"
+    * `FileDescription`: Provides a description of the application as "vertcoin-cli (JSON-RPC client for [package name])". The package name is likely defined elsewhere and specifies the software package this client belongs to.
+    * `FileVersion`: Set to the package version obtained from the `clientversion.h` file.
+    * `InternalName`: Set to "vertcoin-cli" which is the internal name of the executable.
+    * `LegalCopyright`: Specifies the copyright information likely defined in the `COPYRIGHT_STR` variable.
+    * `LegalTrademarks1`: Provides information about the software license, mentioning the MIT license.
+    * `OriginalFilename`: Set to "vertcoin-cli.exe" which is the original name of the executable file.
+    * `ProductName`: Set to "vertcoin-cli" which is the product name displayed to users.
+    * `ProductVersion`: Set to the package version like `FileVersion`.
+
+**5. Translation Information Block:**
+
+* This block specifies the language neutrality of the information, meaning it's not specific to any particular language.
+
+**In summary, this code snippet defines the version information and metadata for the vertcoin-cli application, including its version, company name, copyright, license information, and other details displayed to users and used by the operating system.**
