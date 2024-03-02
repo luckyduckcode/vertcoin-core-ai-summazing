@@ -1,0 +1,21 @@
+This code defines header files for calculating the memory usage of various Bitcoin data structures.
+
+**Key functions:**
+
+* `RecursiveDynamicUsage`: takes a Bitcoin data structure as input and calculates its memory usage recursively.
+    * It utilizes the `memusage::DynamicUsage` function from the `memusage` library to estimate the base memory usage of the data structure.
+    * For complex structures like transactions and blocks, it iterates through their components (inputs, outputs, etc.) and calls `RecursiveDynamicUsage` on them, accumulating the total memory usage.
+
+**Supported data structures:**
+
+* `CScript`: script program
+* `COutPoint`: transaction output point
+* `CTxIn`: transaction input
+* `CTxOut`: transaction output
+* `CTransaction`: transaction
+* `CMutableTransaction`: mutable transaction (same as `CTransaction` for memory usage)
+* `CBlock`: block
+* `CBlockLocator`: block locator
+* `std::shared_ptr<X>`: shared pointer to any data type (X)
+
+**Overall, this code helps estimate the memory footprint of Bitcoin data structures, which is crucial for resource management and performance optimization in the Bitcoin Core software.**

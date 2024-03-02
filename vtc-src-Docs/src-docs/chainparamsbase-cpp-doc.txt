@@ -1,0 +1,14 @@
+This code defines the base class `CBaseChainParams` and related functions for specifying the Bitcoin network a node operates on. It builds upon the previous code snippet and adds functionalities related to command-line argument parsing.
+
+**Key additions:**
+
+* **Command-line argument parsing:**
+    * The `SetupChainParamsBaseOptions` function adds various command-line arguments to the `ArgsManager` object using the `AddArg` method.
+    * These arguments allow users to specify the desired network (`-chain`, `-testnet`, `-regtest`), configure specific network features (`-signetchallenge`, `-signetseednode`), and activate features at specific heights in the `regtest` network (`-testactivationheight`).
+
+**Previously defined functionalities:**
+
+* Defines supported chains (`MAIN`, `TESTNET`, `SIGNET`, `REGTEST`).
+* Provides functions for creating specific chain parameter objects (`CreateBaseChainParams`) and selecting the global chain based on user input (`SelectBaseParams`).
+
+**In summary, this code extends the network selection framework by enabling users to configure various aspects of the chosen network through command-line arguments.**

@@ -1,0 +1,41 @@
+This code defines functionalities related to the **blockchain** structure in the Bitcoin Core library. It focuses on managing the chain of blocks and navigating within it. 
+
+Here's a breakdown of the key points:
+
+**1. CBlockFileInfo:**
+* Represents information about a specific portion of the blockchain, including the number of blocks, total size, and height range within the chain segment.
+* Provides methods to update statistics (excluding size) and convert information to a human-readable format.
+
+**2. BlockStatus:**
+* An enum defining various validation stages of a block:
+    * `BLOCK_VALID_UNKNOWN`: Initial state, validity unknown.
+    * `BLOCK_VALID_TREE`: Header found, difficulty matches, valid timestamp, checkpoint reached.
+    * `BLOCK_VALID_TRANSACTIONS`: All transactions are valid, no duplicates, coinbase transaction follows specific rules.
+    * `BLOCK_VALID_CHAIN`: Outputs don't overspend inputs, no double spends, coinbase output valid, etc.
+    * `BLOCK_VALID_SCRIPTS`: Scripts and signatures within transactions are valid.
+    * Additional flags like `BLOCK_HAVE_DATA` indicate if the block data is available in specific files.
+
+**3. CBlockIndex:**
+* Represents a single block in the chain, storing various data like its hash, height, timestamp, etc.
+* Provides methods for:
+    * Getting ancestor blocks at specific heights.
+    * Building a "skiplist" pointer for faster navigation within the chain.
+    * Checking the validity of the block up to a certain level.
+    * Converting information to a human-readable format.
+
+**4. CDiskBlockIndex:**
+* Similar to `CBlockIndex` but used for storage purposes.
+* Hashes the `pprev` pointer for efficient database storage.
+
+**5. CChain:**
+* Represents the entire blockchain, essentially a linked list of `CBlockIndex` objects.
+* Provides methods for:
+    * Accessing the genesis block, tip block, and block at specific heights.
+    * Checking if a block is present in the chain.
+    * Finding the successor of a block.
+    * Setting the chain tip.
+    * Obtaining a "locator" for efficient block lookups.
+    * Finding the common ancestor between the chain and another block.
+    * Locating the earliest block meeting specific time and height criteria.
+
+**Overall, this code provides essential functionalities for managing and navigating the blockchain structure in the Bitcoin Core library.**

@@ -1,0 +1,25 @@
+This code defines functionalities related to managing and caching unspent transaction outputs (UTXOs) in the Bitcoin system.
+
+**Key functionalities:**
+
+* **CCoinsView:**
+    * Abstract interface representing a UTXO database, providing methods for:
+        * Checking existence of a UTXO (`HaveCoin`)
+        * Retrieving a UTXO (`GetCoin`)
+        * Getting the best block hash (`GetBestBlock`)
+        * Batch writing UTXOs (`BatchWrite`)
+* **CCoinsViewBacked:**
+    * Concrete implementation of `CCoinsView` that delegates calls to another `CCoinsView` object (`base`).
+* **CCoinsViewCache:**
+    * Caching layer on top of `CCoinsViewBacked` to improve performance by keeping frequently accessed UTXOs in memory.
+    * Provides methods for:
+        * Adding UTXOs (`AddCoin`)
+        * Spending UTXOs (`SpendCoin`)
+        * Checking existence of UTXOs in cache (`HaveCoinInCache`)
+        * Flushing cache to underlying storage (`Flush`)
+        * Checking if transaction inputs exist (`HaveInputs`)
+        * Efficiently accessing UTXOs by transaction ID (`AccessByTxid`)
+* **CCoinsViewErrorCatcher:**
+    * Error handling wrapper around `CCoinsViewBacked` that catches exceptions and performs actions like logging errors and potentially triggering callbacks.
+
+**In summary, this code provides a layered architecture for managing UTXOs, with caching for efficiency and error handling for robustness.**

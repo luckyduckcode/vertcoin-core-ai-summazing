@@ -1,0 +1,24 @@
+This code defines functionalities related to the **blockchain** in the Bitcoin Core library. It focuses on managing the chain of blocks and navigating within it.
+
+**Key Points:**
+
+* **`CBlockFileInfo`:** This class represents information about a specific portion of the blockchain.
+    * It provides details like the number of blocks, total size, and height range within the chain segment.
+    * It supports converting this information to a human-readable string format.
+* **`CChain`:** This class represents the entire blockchain, essentially a linked list of `CBlockIndex` objects.
+    * It supports:
+        * Setting the chain tip (the latest block).
+        * Retrieving a block locator (a compact representation of the chain for efficient lookups).
+        * Finding the fork point (common ancestor) of two blocks in the chain.
+        * Finding the earliest block at or after a specific time and/or height.
+    * It utilizes the `pskip` pointer in `CBlockIndex` for efficient navigation within the chain, especially for jumping back to previous blocks.
+* **`CBlockIndex`:** This class represents a single block in the chain.
+    * It stores various data associated with the block, like its hash, height, timestamp, etc.
+    * It provides methods for:
+        * Getting ancestor blocks at specific heights.
+        * Building the `pskip` pointer for faster navigation.
+* **`GetBlockProof`:** This function calculates the "proof of work" for a given block, indicating the amount of computational effort invested in mining it.
+* **`GetBlockProofEquivalentTime`:** This function calculates the time it would take to mine a block with a specific proof of work, considering the current difficulty and chain state.
+* **`LastCommonAncestor`:** This function efficiently finds the last block that is a common ancestor of two given blocks in the chain.
+
+**Overall, this code provides essential functionalities for managing and navigating the blockchain structure in the Bitcoin Core library.**

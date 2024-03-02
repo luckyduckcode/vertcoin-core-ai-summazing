@@ -1,0 +1,36 @@
+This code defines header files for functionalities related to compressing and decompressing scripts and amounts in Bitcoin transactions.
+
+**1. Compressed Script:**
+
+* Defines a `CompressedScript` type using `prevector` to efficiently store compressed scripts (up to 33 bytes).
+* Provides functions for:
+    * `CompressScript`: compresses a script into a `CompressedScript` if it falls into specific formats (P2PKH, P2SH, or compressed public key).
+    * `GetSpecialScriptSize`: calculates the size a compressed script would have based on its type.
+    * `DecompressScript`: decompresses a `CompressedScript` back to the original script.
+
+**2. Compressed Amount:**
+
+* Defines functions for:
+    * `CompressAmount`: compresses a Bitcoin amount (uint64_t) using a custom algorithm.
+    * `DecompressAmount`: decompresses a compressed amount back to the original amount.
+
+**3. ScriptCompression:**
+
+* Defines a `ScriptCompression` struct for efficiently serializing and deserializing scripts.
+* Key points:
+    * Detects and encodes common script formats (P2PKH, P2SH, compressed public key) more efficiently.
+    * Uses `VARINT` for encoding script sizes.
+    * Handles oversized scripts by replacing them with a short invalid script.
+    * Provides serialization (`Ser`) and deserialization (`Unser`) methods for scripts.
+
+**4. AmountCompression:**
+
+* Defines an `AmountCompression` struct for efficiently serializing and deserializing amounts.
+* Provides serialization (`Ser`) and deserialization (`Unser`) methods for amounts using compression and decompression functions.
+
+**5. TxOutCompression:**
+
+* Defines a `TxOutCompression` struct for efficiently serializing `CTxOut` (transaction output) objects.
+* Uses `Using` templates to leverage `AmountCompression` and `ScriptCompression` for serializing `nValue` (amount) and `scriptPubKey` (script) within `CTxOut`.
+
+**Overall, this code aims to optimize storage and transmission of transaction data by compressing scripts and amounts.**

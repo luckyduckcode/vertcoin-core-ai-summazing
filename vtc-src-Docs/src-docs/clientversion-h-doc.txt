@@ -1,0 +1,22 @@
+This code defines header guards and essential information for the Bitcoin client version.
+
+**Key points:**
+
+* **Header guards:**
+    * `#ifndef BITCOIN_CLIENTVERSION_H` and `#define BITCOIN_CLIENTVERSION_H` prevent the header from being included multiple times.
+* **Dependency check:**
+    * Ensures crucial client version information is defined (`CLIENT_VERSION_MAJOR`, etc.) using an error message if missing.
+* **Copyright definition:**
+    * Defines `COPYRIGHT_STR` for Windows resource files, incorporating the copyright year and holders.
+* **Conditional compilation:**
+    * The `#if !defined(WINDRES_PREPROC)` block applies only when not pre-processing for Windows resources.
+* **Client version definition:**
+    * Calculates `CLIENT_VERSION` as a combination of major, minor, and build numbers.
+* **Function declarations:**
+    * Declares functions for generating:
+        * Full client version string (`FormatFullVersion`)
+        * Subversion string following BIP 14 (`FormatSubVersion`)
+        * Copyright holder information (`CopyrightHolders`)
+        * License information (`LicenseInfo`)
+
+**In summary, this code sets up the foundation for managing and utilizing client version information throughout the Bitcoin system.**

@@ -1,0 +1,23 @@
+This code defines header files for functionalities related to parsing, encoding, and converting data in the Bitcoin Core software. 
+
+**Key functionalities:**
+
+* **Parsing:**
+    * `ParseScript`: parses a script string into a `CScript` object representing the script program.
+    * `DecodeHexTx`: decodes a transaction in hexadecimal format into a `CMutableTransaction` object.
+    * `DecodeHexBlk`: decodes a block in hexadecimal format into a `CBlock` object.
+    * `DecodeHexBlockHeader`: decodes a block header in hexadecimal format into a `CBlockHeader` object.
+    * `ParseHashStr`: parses a hexadecimal string into a 256-bit hash (`uint256`).
+    * `ParseSighashString`: parses a string representation of sighash type into an integer code.
+* **Encoding:**
+    * `ScriptToAsmStr`: converts a script program (`CScript`) into a human-readable assembly format string.
+    * `EncodeHexTx`: encodes a transaction (`CTransaction`) into a hexadecimal string.
+    * `SighashToStr`: converts a sighash type code into a string representation.
+* **Conversion:**
+    * `ValueFromAmount`: converts a Bitcoin amount (`CAmount`) into a `UniValue` object suitable for RPC communication.
+    * `FormatScript`: converts a script program (`CScript`) into a human-readable format string.
+    * `ScriptPubKeyToUniv`: converts a scriptPubKey (`CScript`) into a `UniValue` object, optionally including hex and address representations.
+    * `ScriptToUniv`: converts a script program (`CScript`) into a `UniValue` object.
+    * `TxToUniv`: converts a transaction (`CTransaction`) into a `UniValue` object, optionally including transaction details, hex representation, and undo information.
+
+**Overall, this code provides essential tools for working with Bitcoin data in various formats, facilitating interaction with the Bitcoin Core software and exchanging data across different applications.**

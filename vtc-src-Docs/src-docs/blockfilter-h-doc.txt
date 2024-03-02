@@ -1,0 +1,29 @@
+This header file defines functionalities related to **Bloom filters** used in the Vertcoin blockchain, similar to the previous file you shared. However, there are some key differences in the implementation and terminology used.
+
+**Key Points:**
+
+* **`GCSFilter`:** This class again represents a **Generalized Count Sketch (GCS) filter**, a specific type of Bloom filter.
+    * It has similar functionalities as in the previous file, including:
+        * Initialization from parameters or encoded filter data.
+        * Matching elements (checking if an element is potentially present in the filter).
+        * Matching any element from a set of elements.
+    * Relies on serialization for compact storage and transmission.
+* **`BlockFilter`:** This class builds upon `GCSFilter` and is specific to block filtering, but with some differences compared to the previous file:
+    * It supports creation from:
+        * Filter type, block hash, and encoded filter data (same).
+        * Filter type, block data, and undo data (same).
+    * **Terminology:**
+        * Filter types are now explicitly defined as an enum `BlockFilterType` with options like "BASIC" and "INVALID".
+        * The method `GetEncodedFilter` provides direct access to the encoded filter data.
+    * Functionality:
+        * `GetFilterHash`: Computes the hash of the filter itself.
+        * `ComputeHeader`: Computes the filter header based on the previous block header.
+        * Serialization and deserialization are implemented using templates for different stream types.
+* **Helper functions:**
+    * Similar functions exist for managing filter types and their names, with slight variations in naming:
+        * `BlockFilterTypeName`: Gets the name for a filter type.
+        * `BlockFilterTypeByName`: Converts a name to the corresponding filter type.
+        * `AllBlockFilterTypes`: Returns a set of all supported filter types.
+        * `ListBlockFilterTypes`: Returns a comma-separated list of all supported filter types.
+
+**Overall, this code again enables compact representation and efficient membership testing of relevant data within blocks using Bloom filters, with some variations in implementation details and terminology compared to the previous file.**

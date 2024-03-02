@@ -1,0 +1,29 @@
+This header file defines related classes and functionalities for handling compact block encoding in the Vertcoin blockchain.
+
+**Key Points:**
+
+* **Transaction Compression:**
+    * `TransactionCompression`: Base class/placeholder for transaction compression schemes used in compact blocks.
+    * `DefaultFormatter`: Likely the default implementation for transaction compression, used when no specific scheme is defined.
+* **Messages:**
+    * `BlockTransactionsRequest`: Message requesting specific transactions from a block (identified by block hash and transaction indices).
+    * `BlockTransactions`: Message containing transactions requested for a specific block.
+* **Data Structures:**
+    * `PrefilledTransaction`: Represents a pre-filled transaction included in a compact block, with index and transaction reference.
+    * `ReadStatus`: Enum indicating the status of reading a compact block object (success, failure due to invalid data, etc.).
+* **Main Classes:**
+    * **`CBlockHeaderAndShortTxIDs`:**
+        * Represents a compact block containing:
+            * Block header
+            * Random nonce
+            * Short transaction IDs (computed based on transaction hashes) for most transactions.
+            * Optionally, pre-filled transactions (usually the coinbase).
+        * Provides methods for calculating short IDs and retrieving the total number of transactions.
+    * **`PartiallyDownloadedBlock`:**
+        * Represents a partially downloaded block and facilitates its reconstruction:
+            * Stores the block header, available transactions, and information about their source (pre-filled, mempool, or extra).
+            * `InitData`: Initializes the object by reading data from a `CBlockHeaderAndShortTxIDs` object and identifying available transactions in the mempool based on their short IDs.
+            * `IsTxAvailable`: Checks if a specific transaction at a given index is available.
+            * `FillBlock`: Attempts to reconstruct the complete block by combining available transactions with missing ones provided as input. Performs validation using consensus rules and logs information about the reconstructed block.
+
+**Overall, this code helps efficiently download and reconstruct compact blocks by utilizing short transaction IDs and leveraging the mempool for data retrieval.**

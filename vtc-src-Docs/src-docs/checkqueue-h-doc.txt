@@ -1,0 +1,27 @@
+This code defines the `CCheckQueue` class and the related `CCheckQueueControl` class for managing a concurrent queue of verification tasks in the Bitcoin system.
+
+**Key functionalities of `CCheckQueue`:**
+
+* **Purpose:** Manages a queue of verification tasks (`T`) to be executed concurrently by multiple worker threads.
+* **Structure:**
+    * Uses a thread-safe queue (`std::vector`) to store verification tasks.
+    * Employs a master thread and multiple worker threads for processing tasks.
+    * Utilizes condition variables (`m_worker_cv`, `m_master_cv`) for thread synchronization.
+    * Tracks the number of idle and total worker threads (`nIdle`, `nTotal`).
+    * Maintains a flag (`fAllOk`) to indicate if all verifications have been successful so far.
+* **Operations:**
+    * `StartWorkerThreads`: Creates a pool of worker threads to process tasks.
+    * `Wait`: Waits for all tasks to finish and returns the overall success status (`fAllOk`).
+    * `Add`: Adds a batch of verification tasks to the queue.
+    * `StopWorkerThreads`: Terminates the worker threads.
+
+**Key functionalities of `CCheckQueueControl`:**
+
+* **Purpose:** Provides an RAII (Resource Acquisition Is Initialization) wrapper around `CCheckQueue` to ensure all tasks in the queue are completed before the object goes out of scope.
+* **Operations:**
+    * Constructor: Takes a `CCheckQueue` pointer and optionally acquires the control mutex.
+    * `Wait`: Waits for the queue to finish processing tasks (if a queue is associated).
+    * `Add`: Adds a batch of verification tasks to the queue (if a queue is associated).
+    * Destructor: Waits for the queue to finish (if not already done) and releases the control mutex (if acquired).
+
+**In summary, this code implements a concurrent queue system with worker threads for efficient execution of verification tasks, ensuring proper synchronization and completion tracking.**

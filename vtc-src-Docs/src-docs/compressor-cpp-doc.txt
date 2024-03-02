@@ -1,0 +1,18 @@
+This code defines functions for compressing and decompressing Bitcoin scripts and amounts.
+
+**1. Script Compression:**
+
+* The code defines functions to check if a script follows specific formats:
+    * `IsToKeyID`: checks if the script spends from a pay-to-publicaddress (P2PKH) script.
+    * `IsToScriptID`: checks if the script spends from a pay-to-script-hash (P2SH) script.
+    * `IsToPubKey`: checks if the script spends directly from a public key.
+* `CompressScript`: takes a script as input and tries to compress it into a shorter format if it falls into one of the above categories.
+* `GetSpecialScriptSize`: calculates the size a compressed script would have based on its type.
+* `DecompressScript`: takes a compressed script and decompresses it back to its original format.
+
+**2. Amount Compression:**
+
+* `CompressAmount`: takes a Bitcoin amount in satoshis (smallest unit) and compresses it into a smaller number using a custom algorithm.
+* `DecompressAmount`: takes a compressed amount and decompresses it back to the original amount in satoshis.
+
+**Overall, this code aims to improve efficiency by reducing the size of scripts and amounts stored or transmitted on the Bitcoin network.**

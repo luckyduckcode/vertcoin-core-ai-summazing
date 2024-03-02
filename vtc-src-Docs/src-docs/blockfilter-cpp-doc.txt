@@ -1,0 +1,28 @@
+This code defines functionalities related to **Bloom filters** used in the Vertcoin blockchain. 
+
+**Bloom filters** are probabilistic data structures used for membership testing. They are space-efficient and allow for fast queries but may introduce false positives (claiming membership for an element that is not actually present).
+
+**Key points:**
+
+* **`GCSFilter`:** This class represents a generalized Count Sketch (GCS) filter, which is a specific type of Bloom filter used here.
+    * It supports:
+        * Initialization from parameters or encoded filter data.
+        * Matching elements (checking if an element is potentially present in the filter).
+        * Matching any element from a set of elements.
+    * Relies on serialization for compact storage and transmission.
+* **`BlockFilter`:** This class builds upon `GCSFilter` and is specific to block filtering in the Vertcoin blockchain.
+    * It supports creation from:
+        * Filter type, block hash, and encoded filter data.
+        * Filter type, block data, and undo data.
+    * Handles parameter generation based on the filter type and provides methods for:
+        * Getting the filter hash.
+        * Computing the filter header based on the previous block header.
+    * Currently, only supports the "basic" filter type, which uses elements derived from scripts within transactions in the block.
+* **Helper functions:**
+    * `BlockFilterTypeName`: Returns the string name for a given filter type.
+    * `BlockFilterTypeByName`: Converts a string name to the corresponding filter type.
+    * `AllBlockFilterTypes`: Returns a set of all supported filter types.
+    * `ListBlockFilterTypes`: Returns a comma-separated list of all supported filter types.
+    * `BasicFilterElements`: Extracts elements (script data) from a block and its undo information to be used in the "basic" filter type.
+
+**Overall, this code enables compact representation and efficient membership testing of relevant data (transaction scripts) within blocks using Bloom filters.**

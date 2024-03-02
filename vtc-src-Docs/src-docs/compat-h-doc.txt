@@ -1,0 +1,15 @@
+This code defines compatibility macros and functions between different operating systems. 
+
+Here's a breakdown of the key points:
+
+* **Defines:**
+    * Sets platform-specific values for various constants like maximum file path length (`MAX_PATH`) and file permissions (`S_IRUSR`, `S_IWUSR`).
+    * Defines missing functions based on platform availability:
+        * `strnlen`: calculates the length of a string up to a specific maximum length, used when the standard library might not provide it.
+    * Defines platform-specific socket-related functionality:
+        * Socket error codes are mapped to their respective values on different platforms (e.g., `WSAEAGAIN` on Windows corresponds to `EWOULDBLOCK` on Linux).
+        * `IsSelectableSocket`: checks whether a socket can be used with the `poll` function, considering platform limitations.
+        * Defines missing message flags for socket communication (`MSG_NOSIGNAL`, `MSG_DONTWAIT`).
+
+* **Overall Purpose:**
+    * This code aims to provide a consistent interface for common functionalities across different operating systems, ensuring the Bitcoin Core software runs smoothly regardless of the underlying platform.

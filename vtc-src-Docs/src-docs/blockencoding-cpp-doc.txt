@@ -1,0 +1,25 @@
+This code deals with partially downloaded compact blocks in the Vertcoin blockchain. 
+
+**Key functionalities:**
+
+1. **`CBlockHeaderAndShortTxIDs`:** This class represents a compact block containing:
+    * Block header
+    * Random nonce
+    * Short transaction IDs (computed based on transaction hashes) for most transactions in the block.
+    * Optionally, one pre-filled transaction (usually the coinbase).
+2. **`PartiallyDownloadedBlock`:** This class represents a partially downloaded block and facilitates its reconstruction:
+    * It stores the block header and information about available transaction data.
+    * `InitData` function:
+        * Validates the compact block and checks if data size is within limits.
+        * Initializes the block header and creates an array to store available transactions based on the information in the compact block.
+        * Uses the mempool to identify transactions based on their short IDs and stores them in the available transactions array.
+        * Checks for potential short ID collisions and invalid data.
+    * `IsTxAvailable` function: Checks if a specific transaction at a given index is available in the partially downloaded block.
+    * `FillBlock` function:
+        * Takes an empty block and a vector of missing transactions as input.
+        * Fills the block with available transactions and missing transactions from the provided vector.
+        * Performs block validation using the consensus rules.
+        * Logs information about the reconstructed block and missing transactions.
+        * Clears internal data to prevent further use of the object.
+
+**Overall, this code enables efficient downloading and reconstruction of compact blocks by utilizing short transaction IDs and leveraging the mempool for data retrieval.**
