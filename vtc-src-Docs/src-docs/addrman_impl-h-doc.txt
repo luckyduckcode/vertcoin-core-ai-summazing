@@ -1,0 +1,46 @@
+## Explanation of the AddrManImpl Code
+
+This code defines the implementation details of the `AddrMan` class, which manages a list of known Bitcoin addresses. It builds upon the concepts explained in the previous code snippet and provides the concrete functions for various operations.
+
+**1. `AddrInfo` Class:**
+
+* This class extends `CAddress` and holds additional information about an address, including:
+    * Last attempt/count attempt time
+    * Source of the address knowledge
+    * Last successful connection time
+    * Connection attempts and failures
+    * Reference count in "new" sets
+    * Whether it's in the "tried" table
+    * Random position in the `vRandom` vector
+    * Methods to calculate bucket positions, check if it's "terrible" (based on connection attempts and success), and calculate its selection chance.
+
+**2. `AddrManImpl` Class:**
+
+* This class implements the core functionalities of `AddrMan`.
+    * It holds various internal data structures like maps, vectors, and sets to store address information, buckets, and random positions.
+    * It uses a mutex (`cs`) to protect concurrent access to these data structures.
+    * It defines private member functions (`_*`) that perform the actual work for each public function exposed by `AddrMan`. These private functions acquire the lock (`cs`) before accessing the data structures.
+* Public member functions (`*`) of `AddrManImpl` mainly call the corresponding private functions (`_*`) while handling locking and error handling. Here are some key functionalities:
+    * **Serialization/Deserialization (`Serialize`, `Unserialize`):** Allows saving and loading the address data from/to a stream.
+    * **Size:** Returns the total number of unique addresses in both tables.
+    * **Add:** Attempts to add new addresses to the "new" table, considering penalties and reference counts.
+    * **Good:** Marks an address as successful and tries to move it to the "tried" table.
+    * **Attempt:** Updates information about an address after a connection attempt (success or failure).
+    * **ResolveCollisions:** Resolves potential conflicts in the "tried" table.
+    * **SelectTriedCollision:** Selects a "tried" address involved in a collision for eviction resolution.
+    * **Select:** Chooses an address for connection, optionally from either table.
+    * **GetAddr:** Retrieves a random selection of addresses from the list, optionally filtered by network.
+    * **Connected:** Updates information about a successfully connected address.
+    * **SetServices:** Updates the service bits associated with an address.
+    * **GetAsmap:** Returns the AS map (if provided during initialization).
+    * **FindAddressEntry (test-only):** Finds an address and returns information about its position in the data structure.
+* Additionally, the class defines helper functions for:
+    * Finding an address entry by its service information.
+    * Creating a new address entry.
+    * Swapping elements in the random selection list.
+    * Deleting an address entry.
+    * Clearing a position in the "new" table (where entries are actually removed).
+    * Moving an entry from "new" to "tried" table.
+    * Performing consistency checks on the data structures.
+
+**Overall, the `AddrManImpl` class provides the implementation logic for managing the address data, including adding, removing, updating, selecting, and persisting the information.** It ensures thread safety through proper locking and maintains the data structures efficiently for various operations within the `AddrMan` class.

@@ -1,0 +1,27 @@
+
+
+    Purpose and Copyright:
+        The code is related to Bech32 encoding and decoding.
+        It is copyrighted by Pieter Wuille (2017, 2021) and The Bitcoin Core developers.
+        The code is distributed under the MIT software license.
+
+    Bech32 Overview:
+        Bech32 is an address format used to pay native SegWit outputs in Bitcoin.
+        It separates the witness (signature) data from the rest of the transaction data, making transactions smaller and more efficient.
+        Bech32 addresses start with “bc1” and consist of around 42 characters.
+
+    Character Sets:
+        CHARSET contains the Bech32 character set used for encoding.
+        CHARSET_REV is an array used for decoding Bech32 addresses.
+
+    Finite Field GF(1024):
+        The code works with the finite field GF(1024), which is a degree 2 extension of the base field GF(32).
+        The defining polynomial of the extension is x^2 + 9x + 23.
+        The primitive element (e) generates the field, and every non-zero element can be represented as (e)^k for some power k.
+        The arrays GF1024_EXP and GF1024_LOG store powers of (e) and their discrete logarithms, respectively.
+
+    Functionality:
+        The code generates the two tables GF1024_EXP and GF1024_LOG as constexpr.
+        These tables are used for efficient calculations related to Bech32 encoding and decoding.
+
+Overall, this code sets up the necessary data structures and mathematical tools for working with Bech32 addresses in Bitcoin. It ensures efficient encoding and decoding while maintaining data integrity and security.

@@ -1,0 +1,41 @@
+## Explanation of the AddrMan Code
+
+This code defines the `AddrMan` class, which is used by Bitcoin nodes to manage a list of known addresses of other nodes in the network. The goal is to maintain a reliable and diverse list of addresses to connect to for various purposes like relaying transactions and blocks.
+
+**Here's a breakdown of the code:**
+
+**1. Includes:**
+
+* Necessary header files are included for functionalities like handling network addresses, protocols, serialization, and time data.
+
+**2. `InvalidAddrManVersionError`:**
+
+* This custom error class is used to handle invalid versions of the address manager data.
+
+**3. `AddressPosition`:**
+
+* This struct defines information about an address within the `AddrMan` data structure, including whether it's in the "new" or "tried" table, its multiplicity (number of buckets it resides in), and its position within a bucket.
+
+**4. `AddrMan` Class:**
+
+* This is the main class responsible for managing the address list.
+    * It uses a unique pointer (`m_impl`) to an `AddrManImpl` object, which holds the actual implementation details.
+    * The constructor takes arguments like an optional AS map (for Autonomous System information), a flag for deterministic selection, and a consistency check ratio.
+* The class provides various functionalities through member functions:
+    * **Serialization/Deserialization (`Serialize`, `Unserialize`):** Allows saving and loading the address data from/to a stream.
+    * **Size:** Returns the total number of unique addresses in both tables.
+    * **Add:** Attempts to add new addresses to the "new" table, considering penalties and reference counts.
+    * **Good:** Marks an address as successful and tries to move it to the "tried" table.
+    * **Attempt:** Updates information about an address after a connection attempt (success or failure).
+    * **ResolveCollisions:** Resolves potential conflicts in the "tried" table.
+    * **SelectTriedCollision:** Selects a "tried" address involved in a collision for eviction resolution.
+    * **Select:** Chooses an address for connection, optionally from either table.
+    * **GetAddr:** Retrieves a random selection of addresses from the list, optionally filtered by network.
+    * **Connected:** Updates information about a successfully connected address.
+    * **SetServices:** Updates the service bits associated with an address.
+    * **GetAsmap:** Returns the AS map (if provided during initialization).
+    * **FindAddressEntry (test-only):** Finds an address and returns information about its position in the data structure.
+
+**Overall, the code implements a system for storing and managing Bitcoin addresses, keeping them categorized as "new" or "tried" based on their connection status. It also incorporates measures to prevent manipulation and ensure a diverse and reliable set of addresses for the node to connect to.**
+
+Please note that this is a simplified explanation, and the actual code contains additional complexity and edge cases that are not covered here.

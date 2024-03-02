@@ -1,0 +1,24 @@
+This code defines functions for encoding and decoding data in Base58 format, which is a way to represent binary data using alphanumeric characters. It is commonly used in Bitcoin addresses and other cryptocurrency applications.
+
+**The key points of the code are:**
+
+* **Base58 Characters:** It defines a set of allowed characters (`pszBase58`) and a mapping table (`mapBase58`) to convert these characters to numerical values.
+* **`DecodeBase58`:** This function takes a Base58 string and decodes it into a vector of bytes (`vch`). It performs the following steps:
+    * Skips leading spaces and leading "1" characters.
+    * Allocates enough space for the decoded data based on the string length.
+    * Iterates through the string, converts each character to its numerical value, and accumulates the result in big-endian format.
+    * Skips trailing spaces and checks for invalid characters or unexpected string length.
+    * Returns `false` if any errors occur, otherwise returns `true` and fills the `vch` vector with the decoded bytes.
+* **`EncodeBase58`:** This function takes a vector of bytes (`input`) and encodes it into a Base58 string. It performs the following steps:
+    * Skips leading zeroes in the input data.
+    * Allocates enough space for the encoded string based on the input data length.
+    * Iterates through the input bytes, converts them to Base58 digits, and accumulates the result in a reversed order.
+    * Skips leading zeroes in the encoded string.
+    * Converts the numerical digits to characters from `pszBase58` and creates the final string.
+    * Returns the encoded Base58 string.
+* **`DecodeBase58Check` and `EncodeBase58Check`:** These functions are similar to their non-check counterparts but add a checksum mechanism for error detection. They:
+    * Append a 4-byte hash of the data to the end before encoding (for `EncodeBase58Check`).
+    * Verify the appended checksum after decoding (for `DecodeBase58Check`).
+    * Return `false` if the checksum validation fails, indicating potential data corruption.
+
+**Overall, this code provides functionalities for converting between binary data and a human-readable Base58 format with optional checksum verification.**

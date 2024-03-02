@@ -1,0 +1,64 @@
+## Explanation of the code:
+
+This code defines the `BanMan` class in the Bitcoin Core project. It's responsible for managing a list of banned network addresses and subnets.
+
+**Functionality:**
+
+* **Keeps track of banned IP addresses and subnets:** It stores banned entries in a map (`m_banned`) where the key is the subnet and the value is a `CBanEntry` object containing the ban time.
+* **Provides methods for adding, removing, and checking for banned entries:** 
+    * `Ban`: Adds a subnet or IP address to the ban list for a specified duration.
+    * `Unban`: Removes a subnet or IP address from the ban list.
+    * `IsBanned`: Checks if a specific subnet or IP address is currently banned.
+    * `GetBanned`: Retrieves a copy of the current ban list.
+* **Periodically sweeps the ban list:** It removes expired bans and notifies the user interface (UI) about changes.
+* **Persists the ban list to disk:** It saves the ban list to a file (`ban_file`) when adding/removing entries or on exit.
+
+**Breakdown of the code:**
+
+1. **Constructor (`BanMan`)**:
+    * Initializes member variables, including the client interface for UI updates, ban file path, default ban time, and internal flags.
+    * Reads the ban list from the file and logs information about it.
+    * Performs an initial sweep to remove expired entries and dumps the ban list to disk.
+
+2. **Destructor (`~BanMan`)**:
+    * Dumps the current ban list to disk, ensuring data consistency.
+
+3. **`DumpBanlist`**:
+    * Acquires a mutex to ensure thread-safe access to the ban list.
+    * Sweeps the ban list and copies it to a temporary map.
+    * Attempts to write the temporary map to the ban file and logs the result.
+
+4. **`ClearBanned`**:
+    * Clears the ban list and sets the dirty flag, indicating changes.
+    * Dumps the ban list to disk and notifies the UI about the change.
+
+5. **`IsDiscouraged` and `IsBanned`**:
+    * Check if a specific IP address is discouraged (temporary ban) or banned based on the current time and ban expiration time.
+
+6. **`Ban`**:
+    * Creates a `CBanEntry` object with the current time as the ban start time.
+    * Calculates the absolute ban expiration time based on provided parameters and defaults.
+    * Updates the ban list with the new entry and sets the dirty flag.
+    * Notifies the UI about the change and dumps the ban list to disk.
+
+7. **`Discourage`**:
+    * Adds the IP address to a set of discouraged addresses (temporary ban).
+
+8. **`Unban`**:
+    * Attempts to remove the specified subnet or IP address from the ban list and sets the dirty flag if successful.
+    * Notifies the UI and dumps the ban list to disk.
+
+9. **`GetBanned`**:
+    * Acquires a mutex to ensure thread-safe access to the ban list.
+    * Sweeps the ban list to remove expired entries.
+    * Creates a copy of the current ban list and returns it.
+
+10. **`SweepBanned`**:
+    * Iterates through the ban list and removes entries that have expired.
+    * Sets the dirty flag and logs information about removed entries.
+    * Notifies the UI about changes if necessary.
+
+11. **`BannedSetIsDirty` and `SetBannedSetDirty`**:
+    * Get and set a flag indicating if the ban list has been modified and needs to be saved to disk.
+
+**Overall, this code snippet manages the ban list in the Bitcoin network, ensuring that banned nodes and subnets are not allowed to connect for a specified duration.**
