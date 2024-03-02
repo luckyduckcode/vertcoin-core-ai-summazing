@@ -1,0 +1,22 @@
+This code defines the tinyformat C++ header file, which provides a **type-safe alternative to the standard `printf` function**. It offers several key functionalities:
+
+1. **Type safety:** Unlike `printf`, which can lead to unexpected behavior due to implicit type conversions, tinyformat ensures type safety by requiring explicit casting for formatting arguments. This helps prevent runtime errors and improves code reliability.
+
+2. **C99 `printf` compatibility:** The library strives to be compatible with the C99 `printf` format specifiers, making it familiar to users accustomed to the standard function.
+
+3. **POSIX extension for positional arguments:** Tinyformat supports the POSIX extension for positional arguments, allowing you to rearrange the order of formatting arguments in the format string. This can be useful for localization purposes, where the word order may vary in different languages.
+
+4. **Minimalism and single header file:** The entire library is contained within a single header file (`tinyformat.h`), making it easy to include and distribute with your projects.
+
+5. **Flexibility:** The library offers several user-defined functions for advanced formatting scenarios, allowing you to customize how specific data types are formatted.
+
+Here's a breakdown of the key sections in the code:
+
+- **Namespace and configuration:** Defines the `tinyformat` namespace and sets up a convenient namespace alias (`tfm`).
+- **Error handling:** Defines the `TINYFORMAT_ERROR` macro for handling formatting errors, which by default throws a `format_error` exception.
+- **C++11 support:** Provides a macro, `TINYFORMAT_USE_VARIADIC_TEMPLATES`, to enable C++11 variadic templates for more concise and generic code.
+- **Implementation details:** Includes necessary header files and defines macros for various helper functions used within the library.
+- **Variable formatting functions:** These functions handle the actual formatting of different data types based on the format specifiers in the format string. The `formatValue` function is the core function responsible for delegating formatting to the appropriate method based on the data type and format specifier.
+- **Tools for emulating variadic templates:** This section defines macros to simulate variadic templates in C++98, allowing the library to work with older compilers that don't support native variadic templates.
+
+Overall, tinyformat provides a versatile and type-safe alternative to `printf` for C++ projects, offering features like C99 compatibility, positional arguments, and user-defined formatting capabilities.

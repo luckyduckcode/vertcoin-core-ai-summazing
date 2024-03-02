@@ -1,0 +1,29 @@
+This code implements a system for tracking the state of deployments based on BIP9 (Bitcoin Improvement Proposal 9) using version bits. 
+
+Here's a breakdown of the key points:
+
+**BIP9 Deployments:**
+
+* BIP9 introduces a mechanism to activate new functionalities in the Bitcoin protocol without requiring a hard fork.
+* This code defines a generic `AbstractThresholdConditionChecker` class for various deployment conditions.
+* A specific `VersionBitsConditionChecker` subclass implements the logic for BIP9 deployments using version bits.
+
+**Version Bits:**
+
+* Each deployment is associated with a bit position in the block version field.
+* Miners signal their support for a deployment by setting the corresponding bit in the blocks they mine.
+* The code tracks the state of each deployment (defined, started, locked-in, failed, active) based on the following factors:
+    * Start time and timeout defined in the deployment parameters.
+    * Minimum activation height.
+    * Miner signaling threshold.
+
+**`VersionBitsCache`:**
+
+* This class acts as a cache for the state of different deployments.
+* It provides functions to:
+    * Get the state of a deployment for a specific block.
+    * Get statistics about a deployment, including the number of signaling blocks.
+    * Calculate the appropriate block version based on the active deployments.
+    * Clear the cache.
+
+**Overall, this code enables the activation of new functionalities in a decentralized and backwards-compatible manner.**

@@ -1,0 +1,50 @@
+This code implements a data structure and logic for managing transaction requests in a peer-to-peer network. Here's a breakdown of the main points:
+
+**Data Structure:**
+
+* The core data structure is a `boost::multi_index_container` named `Index`.
+* This container stores `Announcement` objects, which represent individual transaction announcements received from peers.
+* The `Announcement` object contains:
+    * `m_txhash`: The transaction hash (or witness transaction hash).
+    * `m_time`: The time the announcement was received.
+    * `m_peer`: The peer that sent the announcement.
+    * `m_sequence`: A sequence number for ordering announcements.
+    * `m_preferred`: Whether the announcement is preferred.
+    * `m_is_wtxid`: Whether the announcement is for a witness transaction.
+    * `m_state`: The current state of the announcement.
+
+**States:**
+
+* The `State` enum defines the possible states of an announcement:
+    * `CANDIDATE_DELAYED`: The announcement is waiting for its `reqtime` to be reached.
+    * `CANDIDATE_READY`: The announcement is ready to be requested if no better candidate exists.
+    * `CANDIDATE_BEST`: The best candidate announcement for a particular transaction hash (only one per txhash).
+    * `REQUESTED`: The transaction has been requested from the peer.
+    * `COMPLETED`: The transaction has been received or the request timed out.
+
+**Indexes:**
+
+* The `Index` container has three indexes for efficient retrieval of announcements:
+    * `ByPeer`: This index allows retrieving announcements by peer and transaction hash (used for looking up existing announcements and finding the best CANDIDATE_BEST for a peer).
+    * `ByTxHash`: This index allows retrieving announcements by transaction hash and state/priority (used for deleting all announcements for a txhash, finding the best CANDIDATE_READY, and checking if no more non-COMPLETED txhash announcements exist).
+    * `ByTime`: This index allows retrieving announcements by their waiting state and timestamp (used for finding announcements whose `reqtime` or expiry has passed).
+
+**Other Components:**
+
+* `PriorityComputer`: This class computes a priority for an announcement based on its transaction hash, peer, and preferred flag.
+* `PeerInfo`: This struct stores statistics about announcements received from a particular peer (total number, completed, requested).
+* `TxHashInfo`: This struct stores statistics about announcements for a particular transaction hash (number of announcements in each state, priorities of the best announcements).
+
+**Functionality:**
+
+* The code implements various functions for managing the `Index` and its contents:
+    * `SanityCheck`: This function verifies the consistency of the data structure and its invariants.
+    * `PostGetRequestableSanityCheck`: This function ensures that announcements are in a valid state after retrieving the next requestable transaction.
+    * `PromoteCandidateReady`: This function promotes a `CANDIDATE_DELAYED` announcement to `CANDIDATE_READY` or `CANDIDATE_BEST` if it's the best candidate.
+    * `ChangeAndReselect`: This function changes the state of an announcement and selects the next best announcement if needed.
+    * `IsOnlyNonCompleted`: This function checks if an announcement is the only non-COMPLETED announcement for its transaction hash.
+    * `MakeCompleted`: This function marks an announcement as COMPLETED and handles cleanup if it's the last announcement for its txhash.
+    * `SetTimePoint`: This function updates the data structure based on the current time, transitioning announcements between states as necessary.
+    * `DisconnectedPeer`: This function handles removing all announcements from a peer when it disconnects.
+
+Overall, this code provides a mechanism for managing transaction requests in a way that considers announcement priorities, timeouts, and the state of other announcements for the same transaction hash.

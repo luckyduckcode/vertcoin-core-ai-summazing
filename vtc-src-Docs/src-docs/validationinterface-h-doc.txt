@@ -1,0 +1,24 @@
+This code defines a class named `CValidationInterface` and a global `CMainSignals` object. 
+
+Here's a summary of the key points:
+
+**CValidationInterface:**
+
+* This class defines an interface for objects that want to be notified about various events related to the Bitcoin blockchain. 
+* These events include:
+    * A new block being added or removed from the blockchain.
+    * A transaction being added or removed from the mempool.
+    * The state of the blockchain being flushed to disk.
+    * The validation state of a block.
+    * A new block being received that builds on the current tip.
+
+**CMainSignals:**
+
+* This is a singleton object that serves as a central hub for registering and notifying objects that implement the `CValidationInterface`.
+* It provides functions to:
+    * Register and unregister objects as subscribers.
+    * Signal events to registered subscribers.
+    * Manage a queue for callbacks to ensure they are executed in order and safely.
+
+Overall, this code provides a mechanism for different parts of the Bitcoin software to communicate with each other and be notified about changes to the blockchain state.
+

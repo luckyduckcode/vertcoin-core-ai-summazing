@@ -1,0 +1,34 @@
+## TxRequestTracker: Managing Transaction Requests in a Peer-to-Peer Network
+
+This code defines a class named `TxRequestTracker` that manages transaction requests in a peer-to-peer network. Here's a summary of its main points:
+
+**Purpose:**
+
+* Tracks announcements received from peers about transactions.
+* Decides which transactions to request from which peers at a given time.
+* Prevents requesting the same transaction multiple times from the same peer or requesting already received transactions.
+
+**Data Structure:**
+
+* Uses a data structure to store information about each "announcement," which represents a transaction announced by a specific peer.
+* An announcement can be in three states:
+    * CANDIDATE: Waiting for its `reqtime` to be reached before requesting.
+    * REQUESTED: Currently being requested from the peer.
+    * COMPLETED: Received a response (transaction or NOTFOUND) or timed out.
+
+**Key Functionalities:**
+
+* **ReceivedInv:** Adds a new CANDIDATE announcement for a transaction from a specific peer.
+* **DisconnectedPeer:** Removes all announcements from a peer when it disconnects.
+* **ForgetTxHash:** Deletes all announcements for a specific transaction hash (both txid and wtxid).
+* **GetRequestable:** Finds transactions that can be requested from a specific peer at a given time.
+* **RequestedTx:** Marks a transaction as requested from a specific peer and sets an expiry time.
+* **ReceivedResponse:** Marks a transaction as COMPLETED after receiving a response (transaction or NOTFOUND) from a peer.
+
+**Additional Points:**
+
+* The tracker considers factors like preferred peers, `reqtime`, and announcement order when choosing which transactions to request.
+* It avoids requesting the same transaction multiple times from the same peer, preventing bandwidth waste and potential manipulation.
+* The code includes functions for checking the size of the data structure and performing sanity checks (for testing purposes).
+
+Overall, `TxRequestTracker` provides a mechanism for efficient and secure management of transaction requests in a peer-to-peer network by considering various factors to optimize request decisions and prevent attacks.

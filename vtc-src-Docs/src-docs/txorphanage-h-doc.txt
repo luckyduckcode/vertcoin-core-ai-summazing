@@ -1,0 +1,13 @@
+The provided code is a header file for a class named `TxOrphanage` in the Bitcoin Core library. This class is responsible for managing **orphan transactions**. These are transactions that have been received by a Bitcoin node but are still missing one or more of the required inputs to be considered valid. 
+
+Here's a summary of the main points of the `TxOrphanage` class:
+
+* **Tracks orphan transactions:** It maintains a map of orphan transactions identified by their transaction ID (txid).
+* **Limits the number of orphans:** It limits the number of orphans stored to prevent resource exhaustion.
+* **Provides methods for adding, checking, and removing orphans:** It allows adding new orphans, checking if a specific orphan exists, retrieving an orphan by its txid, and removing orphans based on various criteria.
+* **Keeps track of expiration time:** It stores the time when an orphan was added and allows removing expired orphans.
+* **Tracks originating peer:** It keeps track of the peer that sent each orphan transaction.
+* **Manages relationships with parent transactions:** It maintains an index that allows efficient removal of orphans when their missing inputs become available in other transactions.
+* **Supports witness transactions:** It also tracks orphans by their witness transaction ID (wtxid) for transactions using SegWit.
+
+Overall, the `TxOrphanage` class plays a crucial role in ensuring the proper handling of orphan transactions in the Bitcoin network. It helps prevent nodes from being overwhelmed by invalid transactions while still allowing them to temporarily store transactions that might become valid later.

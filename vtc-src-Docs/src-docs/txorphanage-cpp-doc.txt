@@ -1,0 +1,28 @@
+## TxOrphanage Code Summary:
+
+This code manages a pool of "orphan transactions" in the Bitcoin network. These are transactions that haven't yet been included in a block because their parent transactions (transactions they reference as inputs) are missing.
+
+**Key functionalities:**
+
+1. **Adding Orphans:**
+    - `AddTx`: Adds a transaction to the orphan pool, keeping track of its size, expiration time, and the node that sent it.
+    - Ignores transactions exceeding a size limit to prevent memory exhaustion attacks.
+
+2. **Removing Orphans:**
+    - `EraseTx`: Removes a specific transaction from the pool by its transaction ID.
+    - `EraseForPeer`: Removes all orphans originating from a specific peer.
+    - `LimitOrphans`: Evicts enough random orphans to maintain a maximum pool size.
+    - `EraseForBlock`: Removes orphans that are included in a block or become invalid due to conflicting transactions in the block.
+
+3. **Tracking Orphans:**
+    - Uses various maps and iterators to efficiently track orphans based on transaction ID, witness transaction ID, and their referring outputs (used by other transactions as inputs).
+    - Maintains a list of orphans for efficient eviction during pool size limitation.
+
+4. **Finding Orphans:**
+    - `HaveTx`: Checks if an orphan with a specific transaction ID or witness transaction ID exists in the pool.
+    - `GetTx`: Retrieves the transaction object and originating node ID for a given orphan transaction ID.
+
+5. **Orphan Expiry:**
+    - `LimitOrphans`: Regularly checks for expired orphans based on a set expiration time and removes them.
+
+**Overall, this code ensures efficient management of orphan transactions, preventing memory abuse and maintaining consistency with the blockchain state.**

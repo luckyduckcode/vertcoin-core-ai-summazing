@@ -1,0 +1,26 @@
+This code defines the `CThreadInterrupt` class in the Bitcoin Core project. It provides functionalities for:
+
+**1. Thread Interruption:**
+
+* Enables safe interruption of threads that are currently sleeping or waiting.
+
+**2. Triggering Interruption:**
+
+* The `operator()` function sets an internal flag to indicate interruption and notifies all waiting threads.
+
+**3. Checking Interruption:**
+
+* The overloaded `operator bool()` checks the current state of the interrupt flag.
+
+**4. Resetting Interruption:**
+
+* The `reset()` function resets the interrupt flag to its initial state (not interrupted).
+
+**5. Interruptible Sleep:**
+
+* The `sleep_for` functions with different time durations allow a thread to sleep while being interruptible.
+* If the thread is interrupted while sleeping, it wakes up and the `sleep_for` function returns `false`.
+
+**Overall, this code provides a mechanism for controlled interruption of threads in the Bitcoin Core project, allowing them to gracefully respond to external events.**
+
+**Note:** This explanation is based on the provided code snippet and might not reflect the entire functionality within the context of the Bitcoin Core project.

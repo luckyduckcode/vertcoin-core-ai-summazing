@@ -1,0 +1,17 @@
+This code defines functionalities for communicating with the Tor anonymity network, specifically targeted for Bitcoin. Here's a summary of its main points:
+
+**1. Includes and constants:**
+* Includes necessary libraries for networking, events, and string manipulation.
+* Defines default values for the Tor control port and whether to listen on an onion service.
+
+**2. Tor control communication classes:**
+* **TorControlReply:** Represents a response received from the Tor control port, including a code and lines of text.
+* **TorControlConnection:** Handles low-level communication with the Tor control port. It can connect, send commands, and receive replies.
+
+**3. Bitcoin specific Tor controller:**
+* **TorController:** Manages the connection to the Tor control port, performs authentication, and creates/maintains an ephemeral onion service for Bitcoin.
+* It defines various callback functions for handling different events during the connection process and communication with Tor.
+
+**Overall, this code provides functionalities for Bitcoin to interact with the Tor control port, allowing it to leverage the anonymity features of the Tor network.**
+
+It's important to note that this code snippet only shows the header file and doesn't include the actual implementation details. 

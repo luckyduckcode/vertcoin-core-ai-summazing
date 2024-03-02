@@ -1,0 +1,12 @@
+## Summary of the Code
+
+This code defines a class named `CMainSignals` that manages callbacks for various events related to the Bitcoin blockchain. 
+
+Here are the key points:
+
+* **Callbacks:** The code allows different objects to register callbacks to be notified when specific events occur in the blockchain, such as a new block being added or removed, a transaction being added or removed from the mempool, etc.
+* **Thread Safety:** The code ensures that callbacks are executed in order and avoids race conditions by using a mutex and a custom queue.
+* **Logging:** The code logs information about the events and their associated data before calling the respective callbacks.
+
+This code essentially acts as a central hub for notifying interested parties about various blockchain events and provides a mechanism for them to react accordingly.
+
